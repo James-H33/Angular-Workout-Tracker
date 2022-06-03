@@ -1,0 +1,11 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom: 1px solid #ccc;
+}
+
+.navbar-logout {
+  text-decoration: underline;
+  cursor: pointer;
+}

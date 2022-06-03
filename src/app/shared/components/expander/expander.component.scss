@@ -1,0 +1,82 @@
+$transition-time: 350ms;
+
+.expander-wrapper {
+  position: relative;
+
+  &.active {
+    z-index: 4;
+  }
+
+  span {
+    font-size: 15px;
+  }
+}
+
+.expander-btn {
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 6px;
+  width: 30px;
+  height: 15px;
+  padding: 0px 6px;
+  background: #457B9D;
+  border-radius: 8px;
+  position: absolute;
+  right: 0;
+  top: 2px;
+  cursor: pointer;
+  z-index: 1;
+  opacity: 1;
+  letter-spacing: 1px;
+
+  &.active {
+    opacity: 0;
+    z-index: 0;
+  }
+
+  &::before {
+    content: '';
+    padding: 15px;
+    width: 30px;
+    position: absolute;
+    left: 0;
+    top: -50%;
+    z-index: -1;
+    background: transparent;
+  }
+}
+
+.expander-content {
+  display: grid;
+  grid-auto-rows: 20px;
+  row-gap: 5px;
+  color: white;
+  padding: 10px;
+  min-width: 120px;
+  min-height: 60px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  box-shadow: 0px 3px 6px 1px #3c3c3c;
+  background: #457B9D;
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  transform: translate3d(-100%, -20px, 0);
+  transition: transform $transition-time ease, opacity $transition-time ease;
+
+  &.active {
+    position: absolute;
+    opacity: 1;
+    z-index: 10;
+    visibility: visible;
+    transform: translate3d(-100%, 0px, 0);
+    transition: transform $transition-time ease, opacity $transition-time ease;
+  }
+
+  div {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

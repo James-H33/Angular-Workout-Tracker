@@ -1,0 +1,34 @@
+.login-form {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 20px;
+
+  h3 {
+    margin-bottom: 20px;
+  }
+}
+
+.ErrorMessage {
+  color: darkred;
+  margin-bottom: 15px;
+}
+
+.form-input {
+  display: grid;
+  margin-bottom: 20px;
+
+  label {
+    margin-bottom: 10px;
+  }
+
+  input {
+    width: 100%;
+  }
+}
+
+.form-errors {
+  color: red;
+  padding: 20px 0;
+}

@@ -1,0 +1,42 @@
+
+@mixin GridLayout() {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 30px;
+}
+
+.exercise-wrapper {
+  margin-bottom: 20px;
+}
+
+.exercise-title {
+  color: #0093ff;
+}
+
+.exercise-set-wrapper {
+  margin-bottom: 20px;
+}
+
+.exercise-sets-header {
+  @include GridLayout();
+  margin: 10px 0px;
+}
+
+.exercise-title-wrapper {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.exercise-sets {
+  display: grid;
+}
+
+.AddSetBtn {
+  display: flex;
+  justify-content: center;
+  background: rgb(213, 213, 213);
+  border-radius: 8px;
+  font-size: 14px;
+  padding: 3px;
+}

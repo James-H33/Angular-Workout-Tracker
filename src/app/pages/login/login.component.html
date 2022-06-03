@@ -1,0 +1,41 @@
+<div class="login-form">
+  <h3>Login</h3>
+
+  <div class="form-input">
+    <label for="username">Username</label>
+
+    <input
+      id="username"
+      class="standard"
+      type="text"
+      [(ngModel)]="form.username"
+      placeholder="Username" />
+
+    <p *ngIf="errors['username']">{{errors['username']}}</p>
+  </div>
+
+  <div class="form-input">
+    <label for="password">Password</label>
+
+    <input
+      id="password"
+      class="standard"
+      type="password"
+      [(ngModel)]="form.password"
+      placeholder="Password" />
+
+    <p *ngIf="errors['password']">{{errors['password']}}</p>
+  </div>
+
+  <div *ngIf="errorMessages.length" class="form-errors">
+    <ng-container *ngFor="let error of errorMessages">
+      <div>{{error}}</div>
+    </ng-container>
+  </div>
+
+  <button
+    [disabled]="isLoading"
+    (click)="submit()">
+    Submit
+  </button>
+</div>

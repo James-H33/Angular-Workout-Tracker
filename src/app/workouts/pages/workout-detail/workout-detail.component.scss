@@ -1,0 +1,44 @@
+.workout-detail {
+  display: grid;
+  padding: 20px;
+  padding-bottom: 50px;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+.workout-detail-header {
+  display: flex;
+  column-gap: 10px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.workout-detail-sets {
+  display: grid;
+  overflow: hidden;
+}
+
+.ModalContentTitle {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.FinishModalTitle {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.FinishModalActions {
+  display: grid;
+  row-gap: 10px;
+}
+
+.workout-detail-add-exercise {
+  button {
+    width: 100%;
+  }
+}

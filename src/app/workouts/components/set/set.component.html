@@ -1,0 +1,31 @@
+<div #ContentWrapper class="set" [class.complete]="set.isComplete" [style]="{ transform: 'translateX('+ position + 'px)' }">
+  <div class="set-delete">
+    <span (click)="delete()">Delete</span>
+  </div>
+
+  <div class="set-num">{{setIndex + 1}}</div>
+
+  <div>
+    <input
+      class="set-input"
+      type="number"
+      [value]="set.weight"
+      (blur)="onWeightChanged($event)"
+      [disabled]="set.isComplete"
+    />
+  </div>
+
+  <div>
+    <input
+      class="set-input"
+      type="number"
+      [value]="set.reps"
+      (blur)="onRepsChanged($event)"
+      [disabled]="set.isComplete"
+    />
+  </div>
+
+  <div>
+    <input type="checkbox" (click)="onComplete()" [checked]="set.isComplete" />
+  </div>
+</div>

@@ -1,0 +1,44 @@
+.set {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 35px;
+  padding: 8px 0;
+  transform: translateX(0);
+  position: relative;
+  align-items: center;
+
+  input.set-input {
+    height: 20px;
+  }
+
+  &.complete {
+    background: #a5caa573
+
+    input {
+      background: #a5caa573;
+      border: 1px solid #a5caa573;
+      color: #a5caa573;
+      height: 20px;
+    }
+  }
+}
+
+.set-num {
+  padding-left: 14px;
+}
+
+.set-delete {
+  position: absolute;
+  width: 350px;
+  right: -360px;
+  top: 0;
+  bottom: 0;
+  background: rgb(203, 70, 70);
+  display: grid;
+  align-items: center;
+
+  span {
+    padding-left: 10px;
+    color: white;
+    font-weight: bold;
+  }
+}

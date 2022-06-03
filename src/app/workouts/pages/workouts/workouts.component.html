@@ -1,0 +1,38 @@
+<div class="wrapper">
+
+  <h2>Workout Tracker</h2>
+  <div class="start-cta">
+    <!-- <RippleButton click={showModal}>
+      Start New Workout
+    </RippleButton> -->
+    <button (click)="createWorkout();">Start New Workout</button>
+  </div>
+
+  <div class="workout-section">
+    <h3>Workouts</h3>
+
+    <WorkoutCard
+      *ngFor="let workout of workouts"
+      [workout]="workout">
+    </WorkoutCard>
+  </div>
+
+  <!-- <Modal isActive={localState.isModalActive}>
+    <div class="classes.AddWorkout">
+      <h4>Name your workout: </h4>
+      <Input
+        value={localState.workoutTitle}
+        placeholder={'Title'}
+        updated={updateWorkoutTitle} />
+
+      <Button click={startWorkout}>
+        Start
+      </Button>
+    </div>
+  </Modal>
+
+  <Backdrop
+    isActive={localState.isModalActive}
+    onDeactivate={() => showModal()}
+  /> -->
+</div>

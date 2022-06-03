@@ -1,0 +1,11 @@
+<nav class="navbar">
+  <ng-container *ngIf="state?.isLoggedIn">
+    <h3 [routerLink]="['']">Workout Tracker</h3>
+    <div class="navbar-logout" (click)="logout()">Logout</div>
+  </ng-container>
+
+  <ng-container *ngIf="!(state?.isLoggedIn)">
+    <h3 [routerLink]="['']">Workout Tracker</h3>
+    <a routerLink="['login']">Login</a>
+  </ng-container>
+</nav>

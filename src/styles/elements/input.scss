@@ -1,0 +1,25 @@
+input {
+  height: 50px;
+  border: 1px solid #333;
+
+  &[disabled] {
+    border: 1px solid rgba(0,0,0,0.3);
+  }
+
+  &.standard {
+    height: 50px;
+    width: 100%;
+    border: 1px solid black;
+    box-sizing: border-box;
+    padding-left: 8px;
+  }
+
+  &.set-input {
+    width: 50px;
+    border: 1px solid black;
+    border-radius: 4px;
+    padding: 5px;
+    -webkit-appearance: none;
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,33 @@
+<div class="exercise-wrapper">
+  <div class="exercise-title-wrapper">
+    <h4 class="exercise-title">
+      {{exercise.title}}
+    </h4>
+
+    <Expander #Expander>
+      <span (click)="remove()">Remove</span>
+    </Expander>
+  </div>
+
+  <div class="exercise-set-wrapper">
+    <div class="exercise-sets-header">
+      <div>Set</div>
+      <div>lbs</div>
+      <div>Reps</div>
+      <div><input type="checkbox" checked disabled /></div>
+    </div>
+
+    <div class="exercise-sets">
+      <Set
+        *ngFor="let set of exercise.sets; let i = index"
+        [set]="set"
+        [exerciseIndex]="exerciseIndex"
+        [setIndex]="i">
+      </Set>
+    </div>
+  </div>
+
+  <div class="AddSetBtn" (click)="addSet()">
+    <span>Add Set</span>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<!-- <Backdrop
+    isActive={state.isExpanderOpen}
+    onDeactivate={() => onBackdropClicked(false)}
+  /> -->
+
+  <div class="wrapper">
+    <div class="expander">
+      <!-- <Expander isActive={state.isExpanderOpen} open={onExpanderOpened} inlineStyles={{ minWidth: '120px' }}>
+        <div onClick={viewHistory}>View History</div>
+        <div onClick={props.delete}>Delete</div>
+      </Expander> -->
+      <Expander #Expander>
+        <div (click)="viewHistory()">View History</div>
+        <div (click)="delete()">Delete</div>
+      </Expander>
+    </div>
+
+    <div [routerLink]="['workout', workout.id]">
+      <label>{{workout.title}}</label>
+
+      <ul>
+        <li *ngFor="let e of workout.exercises">{{e.title}}</li>
+      </ul>
+    </div>
+  </div>

@@ -1,0 +1,36 @@
+.wrapper {
+  padding: 20px;
+}
+
+.start-cta {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.workout-section {
+  display: grid;
+  row-gap: 1em;
+  column-gap: 2em;
+
+  h3 {
+    margin-bottom: 10px;
+  }
+}
+
+.add-workout {
+  display: grid;
+  row-gap: 1em;
+
+  input {
+    width: 100%;
+    height: 48px;
+    border-radius: 6px;
+    outline: none;
+    border: 1px solid gray;
+    padding-left: 8px;
+    box-sizing: border-box;
+    color: #333;
+    font-size: 15px;
+    font-weight: bold;
+  }
+}

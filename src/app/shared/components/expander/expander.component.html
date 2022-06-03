@@ -1,0 +1,9 @@
+<div class="expander-wrapper">
+  <div class="expander-btn" (click)="toggle(true)">
+    <img src="../../../../assets/ellipse.svg" alt="..." />
+  </div>
+
+  <div class="expander-content" [class.active]="isActive">
+    <ng-content></ng-content>
+  </div>
+</div>
