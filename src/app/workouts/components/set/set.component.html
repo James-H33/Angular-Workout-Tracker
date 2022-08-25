@@ -26,6 +26,9 @@
   </div>
 
   <div>
-    <input type="checkbox" (click)="onComplete()" [checked]="set.isComplete" />
+    <Checkbox
+      [selected]="set.isComplete"
+      (selectedChange)="onComplete()">
+    </Checkbox>
   </div>
 </div>

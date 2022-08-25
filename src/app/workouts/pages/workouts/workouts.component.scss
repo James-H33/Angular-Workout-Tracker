@@ -1,5 +1,9 @@
 .wrapper {
   padding: 20px;
+
+  h2 {
+    margin-bottom: 30px;
+  }
 }
 
 .start-cta {
@@ -32,5 +36,14 @@
     color: #333;
     font-size: 15px;
     font-weight: bold;
+  }
+}
+
+.new-workout {
+  display: grid;
+  row-gap: 10px;
+
+  button {
+    margin-top: 5px;
   }
 }

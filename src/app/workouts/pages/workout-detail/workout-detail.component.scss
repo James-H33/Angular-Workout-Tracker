@@ -4,14 +4,20 @@
   padding-bottom: 50px;
 }
 
-h2 {
+
+.workout-detail-title {
   margin-bottom: 20px;
+
+  h2 {
+    margin-bottom: 5px;
+  }
 }
 
 .workout-detail-header {
   display: flex;
   column-gap: 10px;
   margin-bottom: 20px;
+  justify-content: space-between;
   align-items: center;
 }
 

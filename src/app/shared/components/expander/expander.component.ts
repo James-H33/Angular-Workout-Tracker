@@ -1,26 +1,12 @@
-import { Component, ElementRef, Input, OnInit } from '@angular/core';
-import { BackdropService } from 'src/app/services/backdrop/backdrop.service';
-import { filter } from 'rxjs/operators';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'Expander',
   templateUrl: './expander.component.html',
   styleUrls: ['./expander.component.scss']
 })
-export class ExpanderComponent implements OnInit {
+export class ExpanderComponent {
   public isActive = false;
-
-  constructor(
-    private backdrop: BackdropService
-  ) { }
-
-  public ngOnInit(): void {
-    this.backdrop.watch()
-      .pipe(filter((isActive: boolean) => isActive === false))
-      .subscribe(() => {
-        this.isActive = false;
-      });
-  }
 
   public activate() {
     this.toggle(true);
@@ -30,13 +16,8 @@ export class ExpanderComponent implements OnInit {
     this.toggle(false);
   }
 
-  public toggle(isActive: boolean) {
+  public toggle(isActive: boolean, event?: MouseEvent): void {
+    event?.stopPropagation();
     this.isActive = isActive;
-
-    if (isActive) {
-      this.backdrop.show();
-    } else {
-      this.backdrop.hide();
-    }
   }
 }

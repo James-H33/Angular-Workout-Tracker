@@ -2,14 +2,19 @@
   <div class="workout-detail-header">
     <button (click)="complete()">Finish</button>
     <button class="secondary" (click)="cancel()">Cancel</button>
-    <!-- <Timer timeRef={timeRef} /> -->
   </div>
 
-  <h2>{{workout.title}}</h2>
+  <div class="workout-detail-title">
+    <h2>{{workout.title}}</h2>
+    <Timer></Timer>
+  </div>
 
   <div class="workout-detail-sets">
     <div *ngFor="let e of workout.exercises; let i = index;">
-      <ExerciseCard [exercise]="e" [exerciseIndex]="i"></ExerciseCard>
+      <ExerciseCard
+        [exercise]="e"
+        [exerciseIndex]="i">
+      </ExerciseCard>
     </div>
   </div>
 

@@ -1,0 +1,11 @@
+<div #modalRef class="modal" [class.active]="isActive">
+  <ng-content select="[modalHeader]"></ng-content>
+  <ng-content select="[modalBody]"></ng-content>
+  <ng-content select="[modalFooter]"></ng-content>
+</div>
+
+<div
+  class="global-backdrop"
+  [class.active]="isActive"
+  (click)="deactivate()">
+<div>

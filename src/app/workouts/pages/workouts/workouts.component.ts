@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { makeGuid } from 'src/app/shared/utils/utils';
 import { Workout } from '../../models/workout.model';
 import { WorkoutsService } from '../../services/workouts.service';
 
@@ -9,6 +10,8 @@ import { WorkoutsService } from '../../services/workouts.service';
 })
 export class WorkoutsComponent implements OnInit {
   public workouts: Workout[] = [];
+  public isActive = false;
+  public newWorkoutTitle = '';
 
   constructor(private workoutsService: WorkoutsService) { }
 
@@ -21,8 +24,22 @@ export class WorkoutsComponent implements OnInit {
       });
   }
 
-  public createWorkout() {
-    console.log('Hello World');
-    const workout = new Workout();
+  public openModal() {
+    this.isActive = true;
+  }
+
+  public closeModal() {
+    this.isActive = false;
+    this.newWorkoutTitle = '';
+  }
+
+  public async createWorkout() {
+    const w = new Workout();
+    w.title = this.newWorkoutTitle;
+    w.id = makeGuid();
+
+    await this.workoutsService.addWorkout(w);
+
+    this.closeModal();
   }
 }

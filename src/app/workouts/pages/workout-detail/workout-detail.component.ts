@@ -37,12 +37,13 @@ export class WorkoutDetailComponent {
     this.routing.navigate(['']);
   }
 
-  public cancel() {
+  public async cancel() {
+    await this.workoutService.update(this.workout);
     this.routing.navigate(['']);
   }
 
   public addExercise() {
-    this.state.addExercise(this.workout, 'Deadlifts');
+    this.state.addExercise('Deadlifts');
   }
 
   public async getWorkout(id: string) {
