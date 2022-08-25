@@ -30,11 +30,9 @@ export class WorkoutsService {
   }
 
   public async addWorkout(w: Workout) {
-    const workouts = this.workouts.push(w);
-
-    const newWorkouts = await this.http.put('workouts', workouts);
-
-    this.workouts$.next(newWorkouts);
+    const newWorkout = await this.http.post('workouts', w);
+    const workouts = [...this.workouts, newWorkout];
+    this.workouts$.next(workouts);
   }
 
   public async update(w: Workout): Promise<any> {

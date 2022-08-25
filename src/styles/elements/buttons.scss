@@ -5,7 +5,7 @@ button {
   padding: 15px 20px;
   background: #457B9D;
   outline: none;
-  border: none;
+  border: 2px solid transparent;
   border-radius: 8px;
   position: relative;
   overflow: hidden;
@@ -40,7 +40,6 @@ button {
     }
   }
 }
-
 
 .ButtonText {
   opacity: 1;

@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/core';
 import { ExpanderComponent } from 'src/app/shared/components/expander/expander.component';
 import { Exercise } from '../../models/exercise.model';
 import { WorkoutDetailState } from '../../pages/workout-detail/workout-detail-state.service';
@@ -14,16 +14,14 @@ export class ExerciseCardComponent {
   @ViewChild('Expander') public expanderRef?: ExpanderComponent;
 
   constructor(
-    private workoutState: WorkoutDetailState
+    private state: WorkoutDetailState
   ) {}
 
   public remove() {
-    console.log(this.exercise);
-    this.expanderRef?.deactivate();
+    this.state.removeExercise(this.exerciseIndex);
   }
 
   public addSet() {
-    console.log(this.exercise);
-    this.workoutState.addSet(this.exerciseIndex);
+    this.state.addSet(this.exerciseIndex);
   }
 }

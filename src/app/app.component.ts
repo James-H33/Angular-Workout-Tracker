@@ -13,8 +13,7 @@ export class AppComponent {
   public state?: AppState;
 
   constructor(
-    private appState: AppStateService,
-    private backdropService: BackdropService
+    private appState: AppStateService
   ) { }
 
   public async ngOnInit(): Promise<void> {
@@ -23,14 +22,6 @@ export class AppComponent {
     });
 
     await this.appState.load();
-
-    this.backdropService.watch().subscribe((isActive) => {
-      this.isBackdropActive = isActive;
-    });
-  }
-
-  public deactivate() {
-    this.backdropService.hide();
   }
 }
 

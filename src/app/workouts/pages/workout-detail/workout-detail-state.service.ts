@@ -20,7 +20,7 @@ export class WorkoutDetailState {
     this.state$.next(s);
   }
 
-  public addExercise(w: Workout, title: string) {
+  public addExercise(title: string) {
     const newExercise = new Exercise({ title });
     const state = this.currentState;
     const exercises = [...this.currentState.exercises, newExercise];
@@ -67,6 +67,13 @@ export class WorkoutDetailState {
     const sets = exercise.sets.filter((s, i) => setIndex !== i);
     const newExercise = { ...exercise, sets };
     const exercises = this.replaceExerciseAtIndex(exerciseIndex, newExercise);
+
+    this.set({ ...state, exercises });
+  }
+
+  public removeExercise(exerciseIndex: number) {
+    const state = this.currentState;
+    const exercises = state.exercises.filter((e, i) => exerciseIndex !== i);
 
     this.set({ ...state, exercises });
   }

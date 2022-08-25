@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { WorkoutsRoutingModule } from './workouts-routing.module';
 import { WorkoutsComponent } from './pages/workouts/workouts.component';
 import { WorkoutCardComponent } from './components/workout-card/workout-card.component';
@@ -7,10 +8,13 @@ import { SharedModule } from '../shared/shared.module';
 import { WorkoutDetailComponent } from './pages/workout-detail/workout-detail.component';
 import { ExerciseCardComponent } from './components/exercise-card/exercise-card.component';
 import { SetComponent } from './components/set/set.component';
+import { CheckboxComponent } from './components/checkbox/checkbox.component';
+import { TimerComponent } from './components/timer/timer.component';
 
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     SharedModule,
     WorkoutsRoutingModule
   ],
@@ -19,7 +23,9 @@ import { SetComponent } from './components/set/set.component';
     WorkoutCardComponent,
     WorkoutDetailComponent,
     ExerciseCardComponent,
-    SetComponent
+    SetComponent,
+    CheckboxComponent,
+    TimerComponent
   ]
 })
 export class WorkoutsModule {}

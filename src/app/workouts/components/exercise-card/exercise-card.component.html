@@ -14,7 +14,7 @@
       <div>Set</div>
       <div>lbs</div>
       <div>Reps</div>
-      <div><input type="checkbox" checked disabled /></div>
+      <div><Checkbox [selected]="true" [disabled]="true"></Checkbox></div>
     </div>
 
     <div class="exercise-sets">
@@ -31,3 +31,8 @@
     <span>Add Set</span>
   </div>
 </div>
+
+<Backdrop
+  [isActive]="Expander.isActive"
+  (clicked)="Expander.deactivate()">
+</Backdrop>

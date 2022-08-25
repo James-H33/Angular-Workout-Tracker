@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { SetModel } from '../../models/set.model';
