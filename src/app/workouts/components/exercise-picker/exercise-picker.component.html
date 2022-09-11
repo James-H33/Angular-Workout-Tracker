@@ -1,0 +1,19 @@
+<ng-container *ngIf="isOpen">
+
+  <div class="exercise-picker">
+    <div class="exercise-picker-content">
+      <h4>Pick a Exercise</h4>
+
+      <div class="exercise-picker-list">
+        <ng-container *ngFor="let exercise of exercises">
+          <div class="exercise-picker-list-item" (click)="select(exercise)">
+            <img [src]="exercise.image" alt="workout" >
+            <label>{{exercise.title}}</label>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="exercise-picker-backdrop" (click)="close()"></div>
+  </div>
+</ng-container>
