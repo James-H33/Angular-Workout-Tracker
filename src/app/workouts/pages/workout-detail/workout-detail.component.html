@@ -19,6 +19,12 @@
   </div>
 
   <div class="workout-detail-add-exercise">
-    <button class="pill-button--blue" (click)="addExercise()">Add Exercise</button>
+    <button class="pill-button--blue" (click)="openExercisePicker()">Add Exercise</button>
   </div>
 </div>
+
+<app-exercise-picker
+  [isOpen]="isChoosingExercise"
+  (closed)="isChoosingExercise = false"
+  (selected)="addExercise($event)">
+</app-exercise-picker>

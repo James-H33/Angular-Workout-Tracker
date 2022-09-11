@@ -10,6 +10,7 @@ import { ExerciseCardComponent } from './components/exercise-card/exercise-card.
 import { SetComponent } from './components/set/set.component';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { TimerComponent } from './components/timer/timer.component';
+import { ExercisePickerComponent } from './components/exercise-picker/exercise-picker.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { TimerComponent } from './components/timer/timer.component';
     ExerciseCardComponent,
     SetComponent,
     CheckboxComponent,
-    TimerComponent
+    TimerComponent,
+    ExercisePickerComponent
   ]
 })
 export class WorkoutsModule {}

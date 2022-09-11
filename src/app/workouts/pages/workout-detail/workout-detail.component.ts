@@ -12,6 +12,7 @@ import { WorkoutDetailState } from './workout-detail-state.service';
 })
 export class WorkoutDetailComponent {
   @Input() public workout: Workout = new Workout();
+  public isChoosingExercise = false;
 
   constructor(
     private router: ActivatedRoute,
@@ -42,8 +43,12 @@ export class WorkoutDetailComponent {
     this.routing.navigate(['']);
   }
 
-  public addExercise() {
-    this.state.addExercise('Deadlifts');
+  public addExercise(exercise: any) {
+    this.state.addExercise(exercise.title);
+  }
+
+  public openExercisePicker() {
+    this.isChoosingExercise = true;
   }
 
   public async getWorkout(id: string) {

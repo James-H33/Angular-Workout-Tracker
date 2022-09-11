@@ -1,0 +1,65 @@
+.exercise-picker {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+
+  .exercise-picker-content {
+    margin-bottom: 1rem;
+    width: 90vw;
+    min-width: 300px;
+    max-width: 500px;
+    min-height: 200px;
+    background: white;
+    border-radius: 8px;
+    padding: 30px;
+    animation: SlideInFromBottom 0.3s ease-in-out;
+    z-index: 1;
+    box-sizing: border-box;
+
+    h4 {
+      margin-bottom: 10px;
+    }
+  }
+
+  .exercise-picker-list {
+    height: 200px;
+    border-top: 1px solid #d5d5d5;
+    border-bottom: 1px solid #d5d5d5;
+    overflow-y: scroll;
+
+    .exercise-picker-list-item {
+      display: flex;
+      column-gap: 10px;
+      align-items: center;
+      padding: 5px 0;
+
+      img {
+        width: 30px;
+      }
+    }
+  }
+}
+
+@keyframes SlideInFromBottom {
+  0% {
+    transform: translateY(100px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.exercise-picker-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+}

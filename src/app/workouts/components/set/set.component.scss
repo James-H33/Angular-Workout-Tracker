@@ -15,12 +15,12 @@
   }
 
   &.complete {
-    background: #a5caa573
+    background: #a5caa573;
 
-    input {
-      background: #a5caa573;
-      border: 1px solid #a5caa573;
-      color: #a5caa573;
+    input.set-input {
+      background: transparent;
+      border: 1px solid #7fab7f73;
+      color: #7fab7f73;
       height: 20px;
     }
   }
