@@ -4,7 +4,11 @@ export class SetModel {
   public isComplete: boolean;
 
   constructor(data?: any) {
-    const defaults = { ...data };
+    const defaults = {
+      weight: 0,
+      reps: 0,
+      ...data
+    };
 
     this.weight = defaults.weight;
     this.reps = defaults.reps;

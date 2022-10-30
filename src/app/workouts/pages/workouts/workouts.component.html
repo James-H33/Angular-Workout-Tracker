@@ -20,9 +20,15 @@
 
       <input class="standard" type="text" [(ngModel)]="newWorkoutTitle" />
 
-      <button (click)="createWorkout()">
-        Create
-      </button>
+      <div class="new-workout-btns">
+        <button (click)="createWorkout()">
+          Create
+        </button>
+
+        <button class="secondary"(click)="closeModal()">
+          Cancel
+        </button>
+      </div>
     </div>
   </Modal>
 </div>

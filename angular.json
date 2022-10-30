@@ -40,6 +40,8 @@
           },
           "configurations": {
             "production": {
+              "deployUrl": "/Angular-Workout-Tracker/",
+              "baseHref": "/Angular-Workout-Tracker/",
               "budgets": [
                 {
                   "type": "initial",
