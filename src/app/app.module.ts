@@ -28,6 +28,10 @@ import { SharedModule } from './shared/shared.module';
       provide: APP_BASE_HREF,
       useFactory: (s: PlatformLocation) => s.getBaseHrefFromDOM(),
       deps: [PlatformLocation]
+    },
+    {
+      provide: 'Window',
+      useFactory: () => window || {}
     }
   ],
   bootstrap: [AppComponent]
