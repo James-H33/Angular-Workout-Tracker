@@ -1,3 +1,4 @@
+import { APP_BASE_HREF, PlatformLocation } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -22,7 +23,12 @@ import { SharedModule } from './shared/shared.module';
     AppRoutingModule
   ],
   providers: [
-    IsLoggedInGuard
+    IsLoggedInGuard,
+    {
+      provide: APP_BASE_HREF,
+      useFactory: (s: PlatformLocation) => s.getBaseHrefFromDOM(),
+      deps: [PlatformLocation]
+    }
   ],
   bootstrap: [AppComponent]
 })
