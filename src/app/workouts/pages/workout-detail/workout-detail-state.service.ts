@@ -22,6 +22,7 @@ export class WorkoutDetailState {
 
   public addExercise(title: string) {
     const newExercise = new Exercise({ title });
+    newExercise.sets = [ new SetModel() ];
     const state = this.currentState;
     const exercises = [...this.currentState.exercises, newExercise];
     this.set({ ...state, exercises });
