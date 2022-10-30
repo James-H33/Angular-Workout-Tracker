@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { exercises } from './exercise-data/exercises';
 
 @Component({
@@ -7,16 +7,42 @@ import { exercises } from './exercise-data/exercises';
   styleUrls: ['./exercise-picker.component.scss']
 })
 export class ExercisePickerComponent {
-  @Input()
-  public isOpen = false;
-
   @Output()
   public closed = new EventEmitter();
 
   @Output()
   public selected = new EventEmitter();
 
+  @Input()
+  public set isOpen(open: boolean) {
+    this._isOpen = open;
+
+    if (this.isOpen) {
+      this.preventScrolling();
+    } else {
+      this.allowScrolling();
+    }
+  }
+
+  public get isOpen() {
+    return this._isOpen;
+  }
+
+  private _isOpen = false;
+
   public exercises = exercises;
+
+  constructor(
+    @Inject('Window') public windowRef: Window
+  ) { }
+
+  private preventScrolling() {
+    this.windowRef.document.body.style.overflow = 'hidden';
+  }
+
+  private allowScrolling() {
+    this.windowRef.document.body.style.overflow = 'unset';
+  }
 
   public close() {
     this.closed.emit();

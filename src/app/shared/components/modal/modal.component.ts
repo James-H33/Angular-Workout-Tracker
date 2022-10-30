@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'Modal',
@@ -9,6 +9,12 @@ export class ModalComponent {
 
   @Input() public set isActive(active: boolean) {
     this._isActive = active;
+
+    if (this.isActive) {
+      this.preventScrolling();
+    } else {
+      this.allowScrolling();
+    }
   }
 
   public get isActive() {
@@ -16,6 +22,18 @@ export class ModalComponent {
   }
 
   private _isActive = false;
+
+  constructor(
+    @Inject('Window') public windowRef: Window
+  ) { }
+
+  private preventScrolling() {
+    this.windowRef.document.body.style.overflow = 'hidden';
+  }
+
+  private allowScrolling() {
+    this.windowRef.document.body.style.overflow = 'unset';
+  }
 
   public deactivate() {
     this.isActive = false;
