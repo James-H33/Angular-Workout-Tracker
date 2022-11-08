@@ -1,5 +1,9 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ExerciseCardComponent } from '../../components/exercise-card/exercise-card.component';
+import { ExercisePickerComponent } from '../../components/exercise-picker/exercise-picker.component';
+import { TimerComponent } from '../../components/timer/timer.component';
 import { Workout } from '../../models/workout.model';
 import { WorkoutsService } from '../../services/workouts.service';
 import { WorkoutDetailState } from './workout-detail-state.service';
@@ -8,7 +12,14 @@ import { WorkoutDetailState } from './workout-detail-state.service';
   selector: 'app-workout-detail',
   templateUrl: './workout-detail.component.html',
   styleUrls: ['./workout-detail.component.scss'],
-  providers: [WorkoutDetailState]
+  standalone: true,
+  imports: [
+    CommonModule,
+    ExerciseCardComponent,
+    ExercisePickerComponent,
+    TimerComponent
+  ],
+  providers: [WorkoutDetailState],
 })
 export class WorkoutDetailComponent {
   @Input() public workout: Workout = new Workout();

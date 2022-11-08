@@ -1,5 +1,6 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AppState } from 'src/app/services/app-state/app-state.model';
 import { AppStateService } from 'src/app/services/app-state/app-state.service';
 import { IAuthService } from 'src/app/services/auth/iauth.service';
@@ -7,7 +8,12 @@ import { IAuthService } from 'src/app/services/auth/iauth.service';
 @Component({
   selector: 'Navbar',
   templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.scss']
+  styleUrls: ['./nav.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterModule
+  ]
 })
 export class NavComponent {
   public state? = new AppState();

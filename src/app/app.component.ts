@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { AppState } from './services/app-state/app-state.model';
 import { AppStateService } from './services/app-state/app-state.service';
-import { BackdropService } from './services/backdrop/backdrop.service';
 
 @Component({
   selector: 'app-root',

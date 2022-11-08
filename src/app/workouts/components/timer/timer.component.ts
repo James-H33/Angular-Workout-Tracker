@@ -3,7 +3,8 @@ import { convertTimeFromDates, formatTimeFromSeconds } from 'src/app/shared/util
 
 @Component({
   selector: 'Timer',
-  templateUrl: './timer.component.html'
+  templateUrl: './timer.component.html',
+  standalone: true
 })
 export class TimerComponent {
 
