@@ -1,13 +1,20 @@
+import { CommonModule } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { SetModel } from '../../models/set.model';
 import { WorkoutDetailState } from '../../pages/workout-detail/workout-detail-state.service';
+import { CheckboxComponent } from '../checkbox/checkbox.component';
 
 @Component({
   selector: 'Set',
   templateUrl: './set.component.html',
-  styleUrls: ['./set.component.scss']
+  styleUrls: ['./set.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    CheckboxComponent
+  ]
 })
 export class SetComponent implements AfterViewInit {
   @Input() public set = new SetModel();

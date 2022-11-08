@@ -1,5 +1,7 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 import { AppStateService } from 'src/app/services/app-state/app-state.service';
 import { IAuthService } from 'src/app/services/auth/iauth.service';
 import { Exception } from 'src/app/shared/models/exception';
@@ -8,7 +10,13 @@ import { UserCredentials } from 'src/app/shared/models/user-credentials.model';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule
+  ]
 })
 export class LoginComponent implements OnInit {
   public isLoading = false;

@@ -1,33 +1,25 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { WorkoutsRoutingModule } from './workouts-routing.module';
-import { WorkoutsComponent } from './pages/workouts/workouts.component';
+import { BackdropComponent } from '../shared/components/backdrop/backdrop.component';
+import { ExpanderComponent } from '../shared/components/expander/expander.component';
+import { ModalComponent } from '../shared/components/modal/modal.component';
 import { WorkoutCardComponent } from './components/workout-card/workout-card.component';
-import { SharedModule } from '../shared/shared.module';
-import { WorkoutDetailComponent } from './pages/workout-detail/workout-detail.component';
-import { ExerciseCardComponent } from './components/exercise-card/exercise-card.component';
-import { SetComponent } from './components/set/set.component';
-import { CheckboxComponent } from './components/checkbox/checkbox.component';
-import { TimerComponent } from './components/timer/timer.component';
-import { ExercisePickerComponent } from './components/exercise-picker/exercise-picker.component';
+import { WorkoutsComponent } from './pages/workouts/workouts.component';
+import { WorkoutsRoutingModule } from './workouts-routing.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    SharedModule,
+    ExpanderComponent,
+    BackdropComponent,
+    ModalComponent,
+    WorkoutCardComponent,
     WorkoutsRoutingModule
   ],
   declarations: [
-    WorkoutsComponent,
-    WorkoutCardComponent,
-    WorkoutDetailComponent,
-    ExerciseCardComponent,
-    SetComponent,
-    CheckboxComponent,
-    TimerComponent,
-    ExercisePickerComponent
+    WorkoutsComponent
   ]
 })
 export class WorkoutsModule {}
