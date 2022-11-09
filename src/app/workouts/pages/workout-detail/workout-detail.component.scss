@@ -4,11 +4,48 @@
   padding-bottom: 50px;
 }
 
+.workout-detail-timer-wrapper {}
+
+.workout-detail-scrolling-timer {
+  visibility: hidden;
+  position: fixed;
+  top: 4vh;
+  right: 20px;
+  z-index: -1;
+  background: #444;
+  padding: 8px;
+  border-radius: 8px;
+
+  &.show {
+    visibility: visible;
+    z-index: 2;
+  }
+
+  ::ng-deep {
+    .timer {
+      font-size: 20px;
+      color: white;
+    }
+  }
+
+}
+.workout-detail-timer {
+  margin-bottom: 20px;
+}
+
+@keyframes MakeSmall {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.5);
+    width: auto;
+  }
+}
 
 .workout-detail-title {
-  margin-bottom: 20px;
-
   h2 {
+    color: #444;
     margin-bottom: 5px;
   }
 }
@@ -16,14 +53,22 @@
 .workout-detail-header {
   display: flex;
   column-gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   justify-content: space-between;
   align-items: center;
 }
 
-.workout-detail-sets {
+.workout-detail-exercises {
   display: grid;
   overflow: hidden;
+
+  .workout-detail-exercise {
+    margin-bottom: 50px;
+
+    &:last-child {
+      margin-bottom: 20px;
+    }
+  }
 }
 
 .ModalContentTitle {

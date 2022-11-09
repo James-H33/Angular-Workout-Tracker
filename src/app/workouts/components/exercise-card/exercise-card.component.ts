@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/core';
 import { BackdropComponent } from 'src/app/shared/components/backdrop/backdrop.component';
 import { ExpanderComponent } from 'src/app/shared/components/expander/expander.component';
@@ -12,6 +13,7 @@ import { SetComponent } from '../set/set.component';
   styleUrls: ['./exercise-card.component.scss'],
   standalone: true,
   imports: [
+    CommonModule,
     CheckboxComponent,
     ExpanderComponent,
     SetComponent,

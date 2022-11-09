@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ExerciseCardComponent } from '../../components/exercise-card/exercise-card.component';
 import { ExercisePickerComponent } from '../../components/exercise-picker/exercise-picker.component';
@@ -23,6 +23,8 @@ import { WorkoutDetailState } from './workout-detail-state.service';
 })
 export class WorkoutDetailComponent {
   @Input() public workout: Workout = new Workout();
+  @ViewChild('TimerAnchor') public timerAnchor: ElementRef | null = null;
+  @ViewChild('ScrollingTimerRef') public timerRef: ElementRef | null = null;
   public isChoosingExercise = false;
 
   constructor(
@@ -43,6 +45,31 @@ export class WorkoutDetailComponent {
       }
     });
   }
+
+  public ngAfterViewInit(): void {
+    setTimeout(() => this.initObserver(), 1);
+  }
+
+  public initObserver() {
+    if (!this.timerAnchor || !this.timerRef) {
+      return;
+    }
+
+    const action = (entries: any) => {
+      const entry = entries[0];
+      const timeRef = this.timerRef?.nativeElement;
+
+      if (!entry.isIntersecting) {
+        timeRef.classList.add('show');
+      } else {
+        timeRef.classList.remove('show');
+      }
+    }
+
+    const observer = new IntersectionObserver(action);
+    observer.observe(this.timerAnchor.nativeElement);
+  }
+
 
   public async complete() {
     await this.workoutService.update(this.workout);

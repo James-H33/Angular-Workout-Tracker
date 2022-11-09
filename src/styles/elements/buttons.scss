@@ -2,7 +2,7 @@ button {
   color: white;
   font-weight: bold;
   font-size: 14px;
-  padding: 15px 20px;
+  padding: 13px 18px;
   background: #457B9D;
   outline: none;
   border: 2px solid transparent;
@@ -15,9 +15,8 @@ button {
   }
 
   &.secondary {
-    background: white;
-    border: 2px solid rgb(177, 69, 69);
-    color: rgb(177, 69, 69);
+    background: #f1f1f1;
+    color: rgb(216 100 100);
     padding: 13px 18px;
   }
 
