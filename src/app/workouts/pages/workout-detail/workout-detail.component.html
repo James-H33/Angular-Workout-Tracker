@@ -6,11 +6,20 @@
 
   <div class="workout-detail-title">
     <h2>{{workout.title}}</h2>
+  </div>
+
+  <div class="workout-detail-timer" #TimerRef>
     <Timer></Timer>
   </div>
 
-  <div class="workout-detail-sets">
-    <div *ngFor="let e of workout.exercises; let i = index;">
+  <div class="workout-detail-scrolling-timer" #ScrollingTimerRef>
+    <Timer></Timer>
+  </div>
+
+  <div #TimerAnchor class="workout-detail-timer-wrapper"></div>
+
+  <div class="workout-detail-exercises">
+    <div *ngFor="let e of workout.exercises; let i = index;" class="workout-detail-exercise">
       <ExerciseCard
         [exercise]="e"
         [exerciseIndex]="i">

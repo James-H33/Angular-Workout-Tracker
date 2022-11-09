@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { fromEvent } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { SetModel } from '../../models/set.model';
@@ -13,6 +14,7 @@ import { CheckboxComponent } from '../checkbox/checkbox.component';
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
     CheckboxComponent
   ]
 })

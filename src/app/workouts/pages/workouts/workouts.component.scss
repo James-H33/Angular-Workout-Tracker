@@ -43,11 +43,9 @@
   display: grid;
   row-gap: 10px;
 
-  button {
-    margin-top: 5px;
-  }
-
   .new-workout-btns {
+    margin-top: 5px;
     display: grid;
+    row-gap: 10px;
   }
 }
