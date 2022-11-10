@@ -37,20 +37,27 @@ export class SetComponent implements AfterViewInit {
   private attachSwipeToDeleteListener() {
     const div = this.contentWrapperRef?.nativeElement;
 
+    function findParentWithClass(el: any, cls: any) {
+      while ((el = el.parentElement) && !el.classList.contains(cls));
+      return el;
+    }
+
     fromEvent(div, 'touchstart')
       .subscribe((e: any) => {
         let touchStartPos = e.touches[0].clientX;
+        const setEl = findParentWithClass(e.target, 'set');
 
         const move = fromEvent(div, 'touchmove')
           .subscribe((e: any) => {
             const current = e.touches[0].clientX;
             const distance = (Math.round(touchStartPos - current));
+            setEl.classList.add('active');
 
             if (distance <= 0) {
-              this.slideBack();
+              this.slideBack(setEl);
             } else {
               if (distance >= 50) {
-                this.position = -100;
+                this.position = -80;
               } else {
                 this.position = -distance;
               }
@@ -62,18 +69,20 @@ export class SetComponent implements AfterViewInit {
           .subscribe(() => {
             move.unsubscribe();
 
-            if (!(Math.abs(this.position) >= 100)) {
-              this.slideBack();
+            if (!(Math.abs(this.position) >= 80)) {
+              this.slideBack(setEl);
             }
           });
       })
   }
 
-  public slideBack() {
+  public slideBack(el?: any) {
     if (this.position < 0) {
       let next = this.position + 2;
       this.position = next >= 0 ? 0 : next;
-      requestAnimationFrame(this.slideBack.bind(this));
+      requestAnimationFrame(this.slideBack.bind(this, el));
+    } else {
+      el.classList.remove('active');
     }
   }
 

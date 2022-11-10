@@ -1,8 +1,4 @@
 <div #ContentWrapper class="set" [class.complete]="set.isComplete" [style]="{ transform: 'translateX('+ position + 'px)' }">
-  <div class="set-delete">
-    <span (click)="delete()">Delete</span>
-  </div>
-
   <div class="set-num">{{setIndex + 1}}</div>
 
   <div>
@@ -31,4 +27,8 @@
       (selectedChange)="onComplete()">
     </Checkbox>
   </div>
+</div>
+
+<div class="set-delete">
+  <span (click)="delete()">Delete</span>
 </div>
