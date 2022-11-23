@@ -13,6 +13,10 @@
       <li *ngFor="let e of workout.exercises">{{e.title}}</li>
     </ul>
   </div>
+
+  <div class="workout-date">
+    {{workout.getRecentDate() | date }}
+  </div>
 </div>
 
 <Backdrop [isActive]="Expander.isActive" (clicked)="Expander.deactivate()"></Backdrop>
