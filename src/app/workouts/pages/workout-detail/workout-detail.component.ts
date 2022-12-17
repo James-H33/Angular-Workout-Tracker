@@ -72,6 +72,7 @@ export class WorkoutDetailComponent {
 
 
   public async complete() {
+    this.workout.lastCompletedDate = new Date().toUTCString();
     await this.workoutService.update(this.workout);
     this.routing.navigate(['']);
   }

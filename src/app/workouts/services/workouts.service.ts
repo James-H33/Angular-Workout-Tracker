@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { IHttpService } from "src/app/services/http/ihttp.service";
-import { Workout } from "../models/workout.model";
+import { getRecentDate, Workout } from "../models/workout.model";
 
 @Injectable({ providedIn: 'root' })
 export class WorkoutsService {
@@ -13,9 +13,9 @@ export class WorkoutsService {
   public async get() {
     const response = await this.http.get('workouts');
 
-    const workouts = response.workouts.map((w: any) => new Workout(w));
+    const workouts = response.workouts.map((w: any) => new Workout(w))
+    this.sortWorkouts(workouts);
     this.workouts = workouts;
-
     this.workouts$.next(this.workouts);
 
     return workouts;
@@ -32,6 +32,7 @@ export class WorkoutsService {
   public async addWorkout(w: Workout) {
     const newWorkout = await this.http.post('workouts', w);
     const workouts = [...this.workouts, newWorkout];
+    this.sortWorkouts(workouts);
     this.workouts$.next(workouts);
   }
 
@@ -41,5 +42,16 @@ export class WorkoutsService {
 
   public async delete(id: string): Promise<any> {
     return this.http.delete(`workouts/${id}`);
+  }
+
+  private sortWorkouts(workouts: Workout[]) {
+    workouts.sort((a: Workout, b: Workout) => {
+      const aDate = getRecentDate(a);
+      const bDate = getRecentDate(b);
+
+      return bDate - aDate;
+    });
+
+    return workouts;
   }
 }

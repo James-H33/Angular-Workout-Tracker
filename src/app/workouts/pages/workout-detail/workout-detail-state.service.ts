@@ -15,17 +15,16 @@ export class WorkoutDetailState {
     return this.state$.asObservable();
   }
 
-  public set(s: Workout) {
-    this.currentState = s;
-    this.state$.next(s);
+  public set(s: Partial<Workout>) {
+    this.currentState = { ...this.currentState, ...s } as any;
+    this.state$.next(this.currentState);
   }
 
   public addExercise(title: string) {
     const newExercise = new Exercise({ title });
     newExercise.sets = [ new SetModel() ];
-    const state = this.currentState;
     const exercises = [...this.currentState.exercises, newExercise];
-    this.set({ ...state, exercises });
+    this.set({ exercises });
   }
 
   public addSet(exerciseIndex: number) {
@@ -42,7 +41,7 @@ export class WorkoutDetailState {
     const sets = [ ...exercise.sets, newSet ];
     const newExercise = { ...exercise, sets }
     const exercises = this.replaceExerciseAtIndex(exerciseIndex, newExercise);
-    this.set({ ...state, exercises });
+    this.set({ exercises });
   }
 
   public updateSet(exerciseIndex: number, setIndex: number, newState: SetModel) {
@@ -59,7 +58,7 @@ export class WorkoutDetailState {
     const newExercise = { ...exercise, sets }
     const exercises = this.replaceExerciseAtIndex(exerciseIndex, newExercise);
 
-    this.set({ ...state, exercises });
+    this.set({ exercises });
   }
 
   public deleteSet(exerciseIndex: number, setIndex: number) {
@@ -69,14 +68,14 @@ export class WorkoutDetailState {
     const newExercise = { ...exercise, sets };
     const exercises = this.replaceExerciseAtIndex(exerciseIndex, newExercise);
 
-    this.set({ ...state, exercises });
+    this.set({ exercises });
   }
 
   public removeExercise(exerciseIndex: number) {
     const state = this.currentState;
     const exercises = state.exercises.filter((e, i) => exerciseIndex !== i);
 
-    this.set({ ...state, exercises });
+    this.set({ exercises });
   }
 
   private replaceExerciseAtIndex(exerciseIndex: number, newState: Exercise) {
