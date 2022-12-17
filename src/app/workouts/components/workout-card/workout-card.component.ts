@@ -25,7 +25,7 @@ export class WorkoutCardComponent {
   @Input() public workout: Workout = new Workout();
   @ViewChild('Expander') public expander?: ExpanderComponent;
 
-  public formatDate: (w: Workout) => Number = getRecentDate;
+  public formatDate: (w: Workout) => any = getRecentDate;
 
   constructor(
     private workoutsService: WorkoutsService
