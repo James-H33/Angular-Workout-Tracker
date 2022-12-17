@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { IHttpService } from "src/app/services/http/ihttp.service";
-import { Workout } from "../models/workout.model";
+import { getRecentDate, Workout } from "../models/workout.model";
 
 @Injectable({ providedIn: 'root' })
 export class WorkoutsService {
@@ -46,8 +46,8 @@ export class WorkoutsService {
 
   private sortWorkouts(workouts: Workout[]) {
     workouts.sort((a: Workout, b: Workout) => {
-      const aDate = a.getRecentDate();
-      const bDate = b.getRecentDate();
+      const aDate = getRecentDate(a);
+      const bDate = getRecentDate(b);
 
       return bDate - aDate;
     });

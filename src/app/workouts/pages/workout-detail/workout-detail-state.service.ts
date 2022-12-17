@@ -16,7 +16,7 @@ export class WorkoutDetailState {
   }
 
   public set(s: Partial<Workout>) {
-    this.currentState = new Workout({ ...this.currentState, ...s });
+    this.currentState = { ...this.currentState, ...s } as any;
     this.state$.next(this.currentState);
   }
 

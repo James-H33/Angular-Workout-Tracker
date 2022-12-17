@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/c
 import { RouterModule } from '@angular/router';
 import { BackdropComponent } from 'src/app/shared/components/backdrop/backdrop.component';
 import { ExpanderComponent } from 'src/app/shared/components/expander/expander.component';
-import { Workout } from '../../models/workout.model';
+import { getRecentDate, Workout } from '../../models/workout.model';
 import { WorkoutsService } from '../../services/workouts.service';
 import { ExerciseCardComponent } from '../exercise-card/exercise-card.component';
 
@@ -24,6 +24,8 @@ import { ExerciseCardComponent } from '../exercise-card/exercise-card.component'
 export class WorkoutCardComponent {
   @Input() public workout: Workout = new Workout();
   @ViewChild('Expander') public expander?: ExpanderComponent;
+
+  public formatDate: (w: Workout) => Number = getRecentDate;
 
   constructor(
     private workoutsService: WorkoutsService

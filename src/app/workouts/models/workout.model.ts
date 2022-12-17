@@ -1,6 +1,13 @@
 import { Exercise } from "./exercise.model";
 import { History } from "./history.model";
 
+export function getRecentDate(w: Workout) {
+  const createDateValue = new Date(w.createdDate).valueOf();
+  const lastCompletedDateValue = new Date(w.lastCompletedDate).valueOf();
+
+  return lastCompletedDateValue > createDateValue ? lastCompletedDateValue : createDateValue;
+}
+
 export class Workout {
   public id: string;
   public title: string;
@@ -24,13 +31,6 @@ export class Workout {
     this.history = defaults.history.map((h: any) => new History(h));
     this.createdDate = this.getDateOrDefault(defaults.createdDate);
     this.lastCompletedDate = this.getDateOrDefault(defaults.lastCompletedDate);
-  }
-
-  public getRecentDate(): number {
-    const createDate = new Date(this.createdDate).valueOf();
-    const lastCompletedDate = new Date(this.lastCompletedDate).valueOf();
-
-    return lastCompletedDate > createDate ? lastCompletedDate : createDate;
   }
 
   private getDateOrDefault(d: string) {
