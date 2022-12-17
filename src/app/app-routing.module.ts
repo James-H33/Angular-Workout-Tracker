@@ -5,12 +5,12 @@ import { LoginComponent } from './pages/login/login.component';
 
 const routes: Routes = [
   {
-    path: 'workouts',
+    path: '',
     loadChildren: () => import('./workouts/workouts.module').then(m => m.WorkoutsModule),
     canActivate: [IsLoggedInGuard]
   },
   { path: 'login', component: LoginComponent },
-  { path: '**', redirectTo: 'workouts', pathMatch: 'full' }
+  { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 
 @NgModule({

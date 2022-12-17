@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
     try {
       await this.authService.login(this.form);
       this.appState.updateLoggedIn(true);
-      this.router.navigate(['/workouts']);
+      this.router.navigate(['']);
     } catch (err) {
       if (err instanceof Exception) {
         this.errorMessages = [err.message];
