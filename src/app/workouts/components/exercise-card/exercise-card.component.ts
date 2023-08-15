@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { BackdropComponent } from 'src/app/shared/components/backdrop/backdrop.component';
 import { ExpanderComponent } from 'src/app/shared/components/expander/expander.component';
 import { Exercise } from '../../models/exercise.model';
