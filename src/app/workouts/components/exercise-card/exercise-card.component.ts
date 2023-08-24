@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, ViewChild } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { IWorkoutDetailState, WorkoutDetailActions } from '@store/workout';
 import { BackdropComponent } from 'src/app/shared/components/backdrop/backdrop.component';
 import { ExpanderComponent } from 'src/app/shared/components/expander/expander.component';
 import { Exercise } from '../../models/exercise.model';
@@ -26,14 +28,21 @@ export class ExerciseCardComponent {
   @ViewChild('Expander') public expanderRef?: ExpanderComponent;
 
   constructor(
-    private state: WorkoutDetailState
+    private state: WorkoutDetailState,
+    private store: Store<IWorkoutDetailState>
   ) {}
 
   public remove() {
-    this.state.removeExercise(this.exerciseIndex);
+    // this.state.removeExercise(this.exerciseIndex);
+    this.store.dispatch(
+      WorkoutDetailActions.RemoveExercise({ exerciseIndex: this.exerciseIndex })
+    );
   }
 
   public addSet() {
-    this.state.addSet(this.exerciseIndex);
+    this.store.dispatch(
+      WorkoutDetailActions.AddSet({ exerciseIndex: this.exerciseIndex })
+    );
+    // this.state.addSet(this.exerciseIndex);
   }
 }

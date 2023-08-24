@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { convertTimeFromDates, formatTimeFromSeconds } from 'src/app/shared/utils/utils';
 
 @Component({
@@ -7,6 +7,38 @@ import { convertTimeFromDates, formatTimeFromSeconds } from 'src/app/shared/util
   standalone: true
 })
 export class TimerComponent {
+  @Output()
+  public timeChanged = new EventEmitter<number>();
+
+  @Input()
+  public get active() {
+    return this._isActive
+  }
+
+  public set active(isActive: boolean) {
+    this._isActive = isActive;
+
+    if (this._isActive) {
+      this.startTimer();
+    } else {
+      this.stopTimer();
+    }
+  }
+
+  @Input()
+  public get startDate() {
+    return this._startDate;
+  }
+
+  public set startDate(date: string) {
+    if (date) {
+      this._startDate = date;
+      this.startTimer();
+    } else {
+      this._startDate = '';
+      this.resetTimer();
+    }
+  }
 
   public get formattedTime() {
     return formatTimeFromSeconds(this._time);
@@ -14,18 +46,39 @@ export class TimerComponent {
 
   private _time: number = 0;
   private _startTime: number = 0;
+  private _startDate: string = '';
+  private _isActive = false;
   private _interval: any;
 
-  public ngOnInit(): void {
-    this._startTime = new Date().valueOf();
+  public ngOnDestroy(): void {
+    this.stopTimer();
+  }
+
+  private startTimer() {
+    this._startTime = this.getStartTime();
 
     this._interval = setInterval(() => {
       this._time = convertTimeFromDates(this._startTime);
+      this.timeChanged.emit(this._time);
     }, 200);
   }
 
-  public ngOnDestroy(): void {
+  private stopTimer() {
     clearInterval(this._interval);
+  }
+
+  private resetTimer() {
+    this._time = 0;
+    this._startTime = 0;
+    this.stopTimer();
+  }
+
+  private getStartTime() {
+    if (this._startDate) {
+      return new Date(this._startDate).valueOf();
+    }
+
+    return new Date().valueOf();
   }
 }
 

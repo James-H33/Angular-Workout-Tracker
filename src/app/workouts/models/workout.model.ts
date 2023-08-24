@@ -13,6 +13,7 @@ export class Workout {
   public title: string;
   public exercises: Exercise[];
   public history: History[];
+  public startedDate: string;
   public createdDate: string;
   public lastCompletedDate: string;
 
@@ -21,6 +22,7 @@ export class Workout {
       exercises: [],
       history: [],
       createdDate: '',
+      startedDate: '',
       lastCompletedDate: '',
       ...data
     }
@@ -29,11 +31,12 @@ export class Workout {
     this.title = defaults.title;
     this.exercises = defaults.exercises.map((e: any) => new Exercise(e));
     this.history = defaults.history.map((h: any) => new History(h));
-    this.createdDate = this.getDateOrDefault(defaults.createdDate);
-    this.lastCompletedDate = this.getDateOrDefault(defaults.lastCompletedDate);
+    this.startedDate = defaults.startedDate;
+    this.createdDate = getDateOrDefault(defaults.createdDate);
+    this.lastCompletedDate = getDateOrDefault(defaults.lastCompletedDate);
   }
+}
 
-  private getDateOrDefault(d: string) {
-    return d ? new Date(d).toUTCString() : new Date().toUTCString();
-  }
+function getDateOrDefault(d: string) {
+  return d ? new Date(d).toUTCString() : new Date().toUTCString();
 }

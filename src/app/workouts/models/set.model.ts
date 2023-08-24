@@ -12,6 +12,6 @@ export class SetModel {
 
     this.weight = defaults.weight;
     this.reps = defaults.reps;
-    this.isComplete = false;
+    this.isComplete = defaults.isComplete || false;
   }
 }

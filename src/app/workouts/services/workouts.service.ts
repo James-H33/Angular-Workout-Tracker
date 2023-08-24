@@ -8,7 +8,9 @@ export class WorkoutsService {
   private workouts: Workout[] = [];
   public workouts$ = new BehaviorSubject(this.workouts);
 
-  constructor(private http: IHttpService) { }
+  constructor(
+    private http: IHttpService
+  ) { }
 
   public async get() {
     const response = await this.http.get('workouts');
@@ -22,11 +24,16 @@ export class WorkoutsService {
   }
 
   public async getById(id: string): Promise<Workout | any> {
-    if (!this.workouts.length) {
-      await this.get();
-    }
+    const response = await this.http.get(`workouts/${id}`);
+    const workout = new Workout(response);
 
-    return this.workouts.find((w: Workout) => w.id === id);
+    return workout;
+
+    // if (!this.workouts.length) {
+    //   await this.get();
+    // }
+
+    // return this.workouts.find((w: Workout) => w.id === id);
   }
 
   public async addWorkout(w: Workout) {
@@ -37,7 +44,10 @@ export class WorkoutsService {
   }
 
   public async update(w: Workout): Promise<any> {
-    return this.http.put(`workouts/${w.id}`, w);
+    return this.http.put(`workouts/${w.id}`, w)
+      .then((w: Workout) => {
+        return new Workout(w);
+      })
   }
 
   public async delete(id: string): Promise<any> {

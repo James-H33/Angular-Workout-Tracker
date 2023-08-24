@@ -21,7 +21,6 @@ export class CheckboxComponent {
   @Input() selected = false;
   @Input() disabled = false;
   @Output() selectedChange = new EventEmitter();
-  public id = makeGuid();
 
   public onSelected() {
     if (this.disabled) {

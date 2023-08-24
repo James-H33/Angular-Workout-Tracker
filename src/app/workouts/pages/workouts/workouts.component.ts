@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { WorkoutActions } from '@store/workouts';
+import { IWorkoutState } from '@store/workouts/workouts.reducer';
 import { makeGuid } from 'src/app/shared/utils/utils';
 import { Workout } from '../../models/workout.model';
 import { WorkoutsService } from '../../services/workouts.service';
@@ -13,9 +16,13 @@ export class WorkoutsComponent implements OnInit {
   public isActive = false;
   public newWorkoutTitle = '';
 
-  constructor(private workoutsService: WorkoutsService) { }
+  constructor(
+    private workoutsService: WorkoutsService,
+    private store: Store<IWorkoutState>
+  ) { }
 
   public async ngOnInit() {
+    this.store.dispatch(WorkoutActions.LoadWorkouts());
     await this.workoutsService.get();
 
     this.workoutsService.workouts$
