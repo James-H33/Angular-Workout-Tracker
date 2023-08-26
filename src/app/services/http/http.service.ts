@@ -3,8 +3,7 @@ import { IHttpService } from "./ihttp.service";
 
 @Injectable()
 export class HttpService implements IHttpService {
-  // public base = 'https://http-nodejs-production-04f9.up.railway.app';
-  public base = 'http://localhost:9090';
+  public base = 'https://http-nodejs-production-04f9.up.railway.app';
 
   public async get(path: string): Promise<any> {
     const response = await fetch(`${this.base}/${path}`, {

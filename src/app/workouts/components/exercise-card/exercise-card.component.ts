@@ -5,7 +5,6 @@ import { IWorkoutDetailState, WorkoutDetailActions } from '@store/workout';
 import { BackdropComponent } from 'src/app/shared/components/backdrop/backdrop.component';
 import { ExpanderComponent } from 'src/app/shared/components/expander/expander.component';
 import { Exercise } from '../../models/exercise.model';
-import { WorkoutDetailState } from '../../pages/workout-detail/workout-detail-state.service';
 import { CheckboxComponent } from '../checkbox/checkbox.component';
 import { SetComponent } from '../set/set.component';
 
@@ -28,12 +27,10 @@ export class ExerciseCardComponent {
   @ViewChild('Expander') public expanderRef?: ExpanderComponent;
 
   constructor(
-    private state: WorkoutDetailState,
     private store: Store<IWorkoutDetailState>
   ) {}
 
   public remove() {
-    // this.state.removeExercise(this.exerciseIndex);
     this.store.dispatch(
       WorkoutDetailActions.RemoveExercise({ exerciseIndex: this.exerciseIndex })
     );
@@ -43,6 +40,5 @@ export class ExerciseCardComponent {
     this.store.dispatch(
       WorkoutDetailActions.AddSet({ exerciseIndex: this.exerciseIndex })
     );
-    // this.state.addSet(this.exerciseIndex);
   }
 }

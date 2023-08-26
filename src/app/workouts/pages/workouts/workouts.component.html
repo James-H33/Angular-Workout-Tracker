@@ -9,7 +9,7 @@
     <h3>Workouts</h3>
 
     <WorkoutCard
-      *ngFor="let workout of workouts"
+      *ngFor="let workout of workouts$ | async"
       [workout]="workout">
     </WorkoutCard>
   </div>

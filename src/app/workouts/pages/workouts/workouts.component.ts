@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { WorkoutActions } from '@store/workouts';
+import { WorkoutActions, workoutsSelector } from '@store/workouts';
 import { IWorkoutState } from '@store/workouts/workouts.reducer';
 import { makeGuid } from 'src/app/shared/utils/utils';
 import { Workout } from '../../models/workout.model';
@@ -12,7 +12,7 @@ import { WorkoutsService } from '../../services/workouts.service';
   styleUrls: ['./workouts.component.scss']
 })
 export class WorkoutsComponent implements OnInit {
-  public workouts: Workout[] = [];
+  public workouts$ = this.store.select(workoutsSelector);
   public isActive = false;
   public newWorkoutTitle = '';
 
@@ -23,12 +23,6 @@ export class WorkoutsComponent implements OnInit {
 
   public async ngOnInit() {
     this.store.dispatch(WorkoutActions.LoadWorkouts());
-    await this.workoutsService.get();
-
-    this.workoutsService.workouts$
-      .subscribe((workouts: Workout[]) => {
-        this.workouts = workouts;
-      });
   }
 
   public openModal() {

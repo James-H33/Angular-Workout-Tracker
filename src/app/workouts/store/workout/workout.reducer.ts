@@ -77,11 +77,19 @@ export const workoutDetailReducer = createReducer<IWorkoutDetailState>(
     const workout = state.workout as Workout;
     const startedDate = new Date().toISOString();
 
-    debugger;
-
     return {
       ...state,
       workout: { ...workout, startedDate }
+    }
+  }),
+
+  on(WorkoutDetailActions.FinishWorkout, (state) => {
+    const workout = state.workout as Workout;
+    const lastCompletedDate = new Date().toUTCString();
+
+    return {
+      ...state,
+      workout: { ...workout, lastCompletedDate }
     }
   }),
 

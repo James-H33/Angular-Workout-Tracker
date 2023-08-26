@@ -17,7 +17,8 @@ export const StartWorkout = createAction(
 )
 
 export const FinishWorkout = createAction(
-  '[Workout] Finish Workout'
+  '[Workout] Finish Workout',
+  props<{ callback?: () => void }>()
 )
 
 export const FinishWorkoutSuccess = createAction(

@@ -29,7 +29,6 @@ export class SetComponent implements AfterViewInit {
   public position: number = 0;
 
   constructor(
-    private state: WorkoutDetailState,
     private store: Store<IWorkoutDetailState>
   ) {}
 
@@ -109,12 +108,10 @@ export class SetComponent implements AfterViewInit {
   }
 
   public delete() {
-    // this.state.deleteSet(this.exerciseIndex, this.setIndex);
     this.store.dispatch(WorkoutDetailActions.RemoveSet({ exerciseIndex: this.exerciseIndex, setIndex: this.setIndex }));
   }
 
   public updateState(s: SetModel) {
     this.store.dispatch(WorkoutDetailActions.UpdateSet({ exerciseIndex: this.exerciseIndex, setIndex: this.setIndex, set: s }));
-    // this.state.updateSet(this.exerciseIndex, this.setIndex, s);
   }
 }

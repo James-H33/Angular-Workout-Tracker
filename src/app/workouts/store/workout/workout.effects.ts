@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
 import { IWorkoutDetailState, WorkoutDetailActions, selectCurrentWorkout } from "@store/workout";
 import { defer, from } from "rxjs";
-import { map, switchMap, withLatestFrom } from "rxjs/operators";
+import { map, switchMap, tap, withLatestFrom } from "rxjs/operators";
 import { Workout } from "../../models/workout.model";
 import { WorkoutsService } from "../../services/workouts.service";
 
@@ -32,30 +32,32 @@ export class WorkoutDetailEffects {
       )
   )
 
-  // public finishWorkout$ = createEffect(() =>
-  //   this.actions$
-  //     .pipe(
-  //       ofType(WorkoutDetailActions.FinishWorkout),
-  //       withLatestFrom(this.store.select(selectCurrentWorkout)),
-  //       switchMap((values: any) => {
-  //         const [_, workout] = values;
-  //         const request$ = defer(() => from(this.workoutsService.update(workout as Workout)));
+  public finishWorkout$ = createEffect(() =>
+    this.actions$
+      .pipe(
+        ofType(WorkoutDetailActions.FinishWorkout),
+        withLatestFrom(this.store.select(selectCurrentWorkout)),
+        switchMap((values: any) => {
+          const [{ callback }, workout] = values;
+          const request$ = defer(() => from(this.workoutsService.update(workout as Workout)));
 
-  //         return request$
-  //           .pipe(
-  //             map((workout: Workout) => {
-  //               return WorkoutDetailActions.FinishWorkoutSuccess({ workout });
-  //             })
-  //           )
-  //       })
-  //     )
-  // )
+          return request$
+            .pipe(
+              tap(() => {
+                callback();
+              })
+            )
+        })
+      ),
+      { dispatch: false }
+  )
 
   public updateWorkout$ = createEffect(() =>
     this.actions$
       .pipe(
         ofType(
-          // WorkoutDetailActions.StartWorkout,
+          WorkoutDetailActions.StartWorkout,
+          WorkoutDetailActions.CancelWorkout,
           WorkoutDetailActions.AddExercise,
           WorkoutDetailActions.AddSet,
           WorkoutDetailActions.RemoveSet,
