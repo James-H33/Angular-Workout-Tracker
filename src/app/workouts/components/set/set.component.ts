@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { IWorkoutDetailState, WorkoutDetailActions } from '@store/workout';
 import { fromEvent } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { SetModel } from '../../models/set.model';
@@ -26,7 +28,9 @@ export class SetComponent implements AfterViewInit {
 
   public position: number = 0;
 
-  constructor(private state: WorkoutDetailState) {}
+  constructor(
+    private store: Store<IWorkoutDetailState>
+  ) {}
 
   public ngAfterViewInit(): void {
     setTimeout(() => {
@@ -42,12 +46,12 @@ export class SetComponent implements AfterViewInit {
       return el;
     }
 
-    fromEvent(div, 'touchstart')
+    fromEvent(div, 'touchstart', { passive: true })
       .subscribe((e: any) => {
         let touchStartPos = e.touches[0].clientX;
         const setEl = findParentWithClass(e.target, 'set');
 
-        const move = fromEvent(div, 'touchmove')
+        const move = fromEvent(div, 'touchmove', { passive: true })
           .subscribe((e: any) => {
             const current = e.touches[0].clientX;
             const distance = (Math.round(touchStartPos - current));
@@ -64,7 +68,7 @@ export class SetComponent implements AfterViewInit {
             }
           });
 
-        fromEvent(div, 'touchend')
+        fromEvent(div, 'touchend', { passive: true })
           .pipe(first())
           .subscribe(() => {
             move.unsubscribe();
@@ -104,10 +108,10 @@ export class SetComponent implements AfterViewInit {
   }
 
   public delete() {
-    this.state.deleteSet(this.exerciseIndex, this.setIndex);
+    this.store.dispatch(WorkoutDetailActions.RemoveSet({ exerciseIndex: this.exerciseIndex, setIndex: this.setIndex }));
   }
 
   public updateState(s: SetModel) {
-    this.state.updateSet(this.exerciseIndex, this.setIndex, s);
+    this.store.dispatch(WorkoutDetailActions.UpdateSet({ exerciseIndex: this.exerciseIndex, setIndex: this.setIndex, set: s }));
   }
 }
