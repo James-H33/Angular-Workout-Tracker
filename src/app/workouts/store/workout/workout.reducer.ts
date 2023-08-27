@@ -106,10 +106,19 @@ export const workoutDetailReducer = createReducer<IWorkoutDetailState>(
   on(WorkoutDetailActions.CancelWorkout, (state) => {
     const workout = state.workout as Workout;
     const startedDate = '';
+    const exercises = workout.exercises;
+    const updatedExercises = exercises.map((exercise) => {
+      const sets = exercise.sets.map(set => setIsCompleteToDefault(set));
+
+      return {
+        ...exercise,
+        sets
+      }
+    })
 
     return {
       ...state,
-      workout: { ...workout, startedDate }
+      workout: { ...workout, exercises: updatedExercises, startedDate }
     }
   }),
 
@@ -134,6 +143,10 @@ export const workoutDetailReducer = createReducer<IWorkoutDetailState>(
     }
   })
 )
+
+function setIsCompleteToDefault(set: SetModel) {
+  return { ...set, isComplete: false };
+}
 
 function replaceExerciseAtIndex(exercises: Exercise[], exerciseIndex: number, newExercise: Exercise) {
   return exercises.map((e, i) => {

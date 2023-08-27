@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { WorkoutDetailActions, selectCurrentWorkout } from '@store/workout';
 import { IWorkoutDetailState } from '@store/workout/workout.reducer';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, ReplaySubject, Subject, combineLatest } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
 import { ExerciseCardComponent } from '../../components/exercise-card/exercise-card.component';
 import { ExercisePickerComponent } from '../../components/exercise-picker/exercise-picker.component';
 import { TimerComponent } from '../../components/timer/timer.component';
-import { Workout } from '../../models/workout.model';
 
 @Component({
   selector: 'app-workout-detail',
@@ -23,13 +23,38 @@ import { Workout } from '../../models/workout.model';
   ],
   providers: [],
 })
-export class WorkoutDetailComponent {
-  @ViewChild('TimerAnchor') public timerAnchor: ElementRef | null = null;
-  @ViewChild('ScrollingTimerRef') public timerRef: ElementRef | null = null;
-  public workout: Workout = new Workout();
+export class WorkoutDetailComponent implements OnDestroy {
+  @ViewChild('TimerAnchor')
+  public set timerAnchorRef(ref: ElementRef | null) {
+    if (!ref) {
+      return;
+    }
+
+    this.timerAnchor = ref;
+    this.timerAnchor$.next(ref);
+  }
+
+  @ViewChild('ScrollingTimerRef')
+  public set scrollingTimerRef(ref: ElementRef | null) {
+    if (!ref) {
+      return;
+    }
+
+    this.timerRef = ref;
+    this.timerRef$.next(ref);
+  }
+
+  public timerAnchor: ElementRef | null = null;
+  public timerRef: ElementRef | null = null;
+  public timerAnchor$ = new ReplaySubject(1);
+  public timerRef$ = new ReplaySubject(1);
+  public viewInit$ = new BehaviorSubject<boolean>(false);
+
   public isChoosingExercise = false;
   public workout$ = this.store.select(selectCurrentWorkout);
   public workoutDuration$ = new BehaviorSubject<number>(0);
+
+  private destroy$ = new Subject();
 
   constructor(
     private router: ActivatedRoute,
@@ -46,10 +71,24 @@ export class WorkoutDetailComponent {
           this.store.dispatch(WorkoutDetailActions.LoadWorkout({ id }));
         }
       });
+
+    combineLatest([
+      this.workout$,
+      this.timerAnchor$,
+      this.timerRef$
+    ])
+      .pipe(
+        takeUntil(this.destroy$),
+        map(() => Promise.resolve())
+      )
+      .subscribe(() => {
+        this.initObserver();
+      });
   }
 
-  public ngAfterViewInit(): void {
-    setTimeout(() => this.initObserver(), 1);
+  public ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   public initObserver() {

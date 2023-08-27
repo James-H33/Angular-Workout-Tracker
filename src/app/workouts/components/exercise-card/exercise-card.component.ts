@@ -2,11 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IWorkoutDetailState, WorkoutDetailActions } from '@store/workout';
-import { BackdropComponent } from 'src/app/shared/components/backdrop/backdrop.component';
-import { ExpanderComponent } from 'src/app/shared/components/expander/expander.component';
 import { Exercise } from '../../models/exercise.model';
 import { CheckboxComponent } from '../checkbox/checkbox.component';
 import { SetComponent } from '../set/set.component';
+import { ExpanderComponent } from '../../../shared/components/expander/expander.component';
+import { BackdropComponent } from '../../../shared/components/backdrop/backdrop.component';
 
 @Component({
   selector: 'ExerciseCard',
