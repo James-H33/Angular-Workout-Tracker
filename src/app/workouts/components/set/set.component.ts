@@ -6,7 +6,6 @@ import { IWorkoutDetailState, WorkoutDetailActions } from '@store/workout';
 import { fromEvent } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { SetModel } from '../../models/set.model';
-import { WorkoutDetailState } from '../../pages/workout-detail/workout-detail-state.service';
 import { CheckboxComponent } from '../checkbox/checkbox.component';
 
 @Component({

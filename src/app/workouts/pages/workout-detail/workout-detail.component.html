@@ -24,12 +24,15 @@
   </div>
 
   <div class="workout-detail-scrolling-timer" #ScrollingTimerRef>
-    <Timer></Timer>
+    <Timer
+      [startDate]="currentWorkout.startedDate"
+      (timeChanged)="handleWorkoutTimerUpdate($event)">
+    </Timer>
   </div>
 
   <div #TimerAnchor class="workout-detail-timer-wrapper"></div>
 
-  <div class="workout-detail-exercises">
+  <div class="workout-detail-exercises" [class.is-disabled]="!currentWorkout.startedDate">
     <div *ngFor="let e of currentWorkout.exercises; let i = index;" class="workout-detail-exercise">
       <ExerciseCard
         [exercise]="e"
