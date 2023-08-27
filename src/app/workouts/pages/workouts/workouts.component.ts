@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { WorkoutActions, workoutsSelector } from '@store/workouts';
+import { WorkoutActions, selectSortedByMostRecentDate } from '@store/workouts';
 import { IWorkoutState } from '@store/workouts/workouts.reducer';
-import { makeGuid } from 'src/app/shared/utils/utils';
-import { Workout } from '../../models/workout.model';
-import { WorkoutsService } from '../../services/workouts.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-workouts',
@@ -12,13 +11,13 @@ import { WorkoutsService } from '../../services/workouts.service';
   styleUrls: ['./workouts.component.scss']
 })
 export class WorkoutsComponent implements OnInit {
-  public workouts$ = this.store.select(workoutsSelector);
+  public workouts$ = this.store.select(selectSortedByMostRecentDate);
   public isActive = false;
   public newWorkoutTitle = '';
 
   constructor(
-    private workoutsService: WorkoutsService,
-    private store: Store<IWorkoutState>
+    private store: Store<IWorkoutState>,
+    private actions$: Actions
   ) { }
 
   public async ngOnInit() {
@@ -35,12 +34,17 @@ export class WorkoutsComponent implements OnInit {
   }
 
   public async createWorkout() {
-    const w = new Workout();
-    w.title = this.newWorkoutTitle;
-    w.id = makeGuid();
+    this.actions$.pipe(
+        ofType(WorkoutActions.CreateWorkoutSuccess),
+        take(1),
+      ).subscribe(() => {
+        this.closeModal();
+      })
 
-    await this.workoutsService.addWorkout(w);
-
-    this.closeModal();
+    this.store.dispatch(
+      WorkoutActions.CreateWorkout({
+        title: this.newWorkoutTitle
+      })
+    );
   }
 }
