@@ -18,5 +18,19 @@ export const workoutsReducer = createReducer<IWorkoutState>(
       ...state,
       workouts
     }
+  }),
+
+  on(WorkoutActions.CreateWorkoutSuccess, (state, { workouts }) => {
+    return {
+      ...state,
+      workouts
+    }
+  }),
+
+  on(WorkoutActions.DeleteWorkoutSuccess, (state, { workouts }) => {
+    return {
+      ...state,
+      workouts
+    }
   })
 )

@@ -1,25 +1,16 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
 import { IHttpService } from "src/app/services/http/ihttp.service";
-import { getRecentDate, Workout } from "../models/workout.model";
+import { Workout } from "../models/workout.model";
 
 @Injectable({ providedIn: 'root' })
 export class WorkoutsService {
-  private workouts: Workout[] = [];
-  public workouts$ = new BehaviorSubject(this.workouts);
-
   constructor(
     private http: IHttpService
   ) { }
 
   public async get() {
     const response = await this.http.get('workouts');
-
     const workouts = response.workouts.map((w: any) => new Workout(w))
-    this.sortWorkouts(workouts);
-    this.workouts = workouts;
-    this.workouts$.next(this.workouts);
-
     return workouts;
   }
 
@@ -28,19 +19,10 @@ export class WorkoutsService {
     const workout = new Workout(response);
 
     return workout;
-
-    // if (!this.workouts.length) {
-    //   await this.get();
-    // }
-
-    // return this.workouts.find((w: Workout) => w.id === id);
   }
 
   public async addWorkout(w: Workout) {
-    const newWorkout = await this.http.post('workouts', w);
-    const workouts = [...this.workouts, newWorkout];
-    this.sortWorkouts(workouts);
-    this.workouts$.next(workouts);
+    return this.http.post('workouts', w);
   }
 
   public async update(w: Workout): Promise<any> {
@@ -52,16 +34,5 @@ export class WorkoutsService {
 
   public async delete(id: string): Promise<any> {
     return this.http.delete(`workouts/${id}`);
-  }
-
-  private sortWorkouts(workouts: Workout[]) {
-    workouts.sort((a: Workout, b: Workout) => {
-      const aDate = getRecentDate(a);
-      const bDate = getRecentDate(b);
-
-      return bDate - aDate;
-    });
-
-    return workouts;
   }
 }
