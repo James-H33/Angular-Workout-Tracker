@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AppState } from 'src/app/services/app-state/app-state.model';
 import { AppStateService } from 'src/app/services/app-state/app-state.service';
@@ -15,7 +15,7 @@ import { IAuthService } from 'src/app/services/auth/iauth.service';
     RouterModule
   ]
 })
-export class NavComponent {
+export class NavComponent implements OnInit {
   public state? = new AppState();
 
   constructor(

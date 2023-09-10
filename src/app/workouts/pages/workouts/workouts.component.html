@@ -14,9 +14,9 @@
     </WorkoutCard>
   </div>
 
-  <Modal [isActive]="isActive" (close)="closeModal()">
+  <Modal [isActive]="isActive" (closed)="closeModal()">
     <div modalBody class="new-workout">
-      <label>Name your workout: </label>
+      <label for="">Name your workout: </label>
 
       <input class="standard" type="text" [(ngModel)]="newWorkoutTitle" />
 

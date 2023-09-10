@@ -9,12 +9,12 @@ export class WorkoutsService {
   ) { }
 
   public async get() {
-    const response = await this.http.get('workouts');
-    const workouts = response.workouts.map((w: any) => new Workout(w))
+    const response = await this.http.get('workouts') as { workouts: Workout[] };
+    const workouts = response.workouts.map((w) => new Workout(w))
     return workouts;
   }
 
-  public async getById(id: string): Promise<Workout | any> {
+  public async getById(id: string): Promise<Workout> {
     const response = await this.http.get(`workouts/${id}`);
     const workout = new Workout(response);
 
@@ -25,14 +25,14 @@ export class WorkoutsService {
     return this.http.post('workouts', w);
   }
 
-  public async update(w: Workout): Promise<any> {
+  public async update(w: Workout): Promise<Workout> {
     return this.http.put(`workouts/${w.id}`, w)
-      .then((w: Workout) => {
+      .then((w) => {
         return new Workout(w);
       })
   }
 
-  public async delete(id: string): Promise<any> {
-    return this.http.delete(`workouts/${id}`);
+  public async delete(id: string): Promise<void> {
+    await this.http.delete(`workouts/${id}`);
   }
 }

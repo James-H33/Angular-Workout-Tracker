@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { WorkoutDetailActions, selectCurrentWorkout } from '@store/workout';
@@ -21,9 +21,9 @@ import { TimerComponent } from '../../components/timer/timer.component';
     ExercisePickerComponent,
     TimerComponent
   ],
-  providers: [],
+  providers: []
 })
-export class WorkoutDetailComponent implements OnDestroy {
+export class WorkoutDetailComponent implements OnInit, OnDestroy {
   @ViewChild('TimerAnchor')
   public set timerAnchorRef(ref: ElementRef | null) {
     if (!ref) {

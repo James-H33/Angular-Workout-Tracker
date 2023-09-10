@@ -5,7 +5,7 @@
     </h4>
 
     <Expander #Expander>
-      <span (click)="remove()">Remove</span>
+      <span (click)="remove()" aria-hidden="true">Remove</span>
     </Expander>
   </div>
 
@@ -27,7 +27,7 @@
     </div>
   </div>
 
-  <div class="AddSetBtn" (click)="addSet()">
+  <div class="AddSetBtn" (click)="addSet()" aria-hidden="true">
     <span>Add Set</span>
   </div>
 </div>

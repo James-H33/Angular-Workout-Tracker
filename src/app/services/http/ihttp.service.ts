@@ -1,6 +1,6 @@
 export abstract class IHttpService {
-  public abstract get(path: string): Promise<any>;
-  public abstract post(path: string, data: any): Promise<any>;
-  public abstract put(path: string, data: any): Promise<any>;
-  public abstract delete(path: string): Promise<any>;
+  public abstract get<T>(path: string): Promise<unknown>;
+  public abstract post<T>(path: string, data: T): Promise<unknown>;
+  public abstract put<T>(path: string, data: T): Promise<unknown>;
+  public abstract delete<T>(path: string): Promise<unknown>;
 }

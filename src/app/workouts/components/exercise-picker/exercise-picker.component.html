@@ -6,14 +6,14 @@
 
       <div class="exercise-picker-list">
         <ng-container *ngFor="let exercise of exercises">
-          <div class="exercise-picker-list-item" (click)="select(exercise)">
+          <div class="exercise-picker-list-item" (click)="select(exercise)" aria-hidden="true">
             <img [src]="exercise.image" alt="workout" >
-            <label>{{exercise.title}}</label>
+            <label for="">{{exercise.title}}</label>
           </div>
         </ng-container>
       </div>
     </div>
 
-    <div class="exercise-picker-backdrop" (click)="close()"></div>
+    <div class="exercise-picker-backdrop" (click)="close()" aria-hidden="true"></div>
   </div>
 </ng-container>

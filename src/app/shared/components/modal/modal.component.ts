@@ -10,7 +10,7 @@ import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
   ]
 })
 export class ModalComponent {
-  @Output() public close = new EventEmitter();
+  @Output() public closed = new EventEmitter();
 
   @Input() public set isActive(active: boolean) {
     this._isActive = active;
@@ -42,6 +42,6 @@ export class ModalComponent {
 
   public deactivate() {
     this.isActive = false;
-    this.close.emit();
+    this.closed.emit();
   }
 }

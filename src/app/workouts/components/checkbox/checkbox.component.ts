@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { makeGuid } from 'src/app/shared/utils/utils';
 
 @Component({
   selector: 'Checkbox',
@@ -10,9 +9,9 @@ import { makeGuid } from 'src/app/shared/utils/utils';
     CommonModule,
   ],
   template: `
-    <div class="checkbox" (click)="onSelected()">
+    <div class="checkbox" (click)="onSelected()" aria-hidden="true">
       <div class="checkbox-checkmark">
-        <img *ngIf="selected" src="assets/checkmark.png" />
+        <img *ngIf="selected" src="assets/checkmark.png" alt="checkmark" />
       </div>
     </div>
   `

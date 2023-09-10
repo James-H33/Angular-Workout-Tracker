@@ -1,13 +1,13 @@
 <div class="wrapper" [routerLink]="['workout', workout.id]">
   <div class="expander">
     <Expander #Expander>
-      <div (click)="viewHistory($event)">View History</div>
-      <div (click)="delete($event)">Delete</div>
+      <div (click)="viewHistory($event)" aria-hidden="true">View History</div>
+      <div (click)="delete($event)" aria-hidden="true">Delete</div>
     </Expander>
   </div>
 
   <div>
-    <label>{{workout.title}}</label>
+    <label [for]="">{{workout.title}}</label>
 
     <ul>
       <li *ngFor="let e of workout.exercises">{{e.title}}</li>
