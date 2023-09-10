@@ -9,10 +9,10 @@ export class StorageService implements IStorageService {
   ) { }
 
   public get(key: string): string {
-    return this.localStorageRef.getItem(key) as any;
+    return this.localStorageRef.getItem(key) as string;
   }
 
-  public set(key: string, value: any): void {
+  public set(key: string, value: string): void {
     this.localStorageRef.setItem(key, value);
   }
 

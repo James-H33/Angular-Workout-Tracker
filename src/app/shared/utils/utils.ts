@@ -1,6 +1,6 @@
 export const makeGuid = () => {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-    var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r && 0x3 | 0x8);
+    const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r && 0x3 | 0x8);
     return v.toString(16);
   });
 }
@@ -10,9 +10,9 @@ export const convertTimeFromDates = (time: number) => {
 }
 
 export const formatTimeFromSeconds = (t: number) => {
-  let oneHourInSec = 3600;
-  let oneMinInSec = 60;
-  let hour: any = '0';
+  const oneHourInSec = 3600;
+  const oneMinInSec = 60;
+  let hour = 0;
 
   if (t >= oneMinInSec) {
     hour = Math.floor(t / oneHourInSec);
@@ -26,13 +26,13 @@ export const formatTimeFromSeconds = (t: number) => {
 
 function getRemainingTimeFromSeconds(t: number) {
   if (t >= 60) {
-    let m: any = Math.floor(t / 60);
-    let s: any = t % 60;
+    const m = Math.floor(t / 60);
+    const s = t % 60;
 
-    s = s < 10 ? `0${s}` : s;
-    m = m < 10 ? `0${m}` : m;
+    const sec = s < 10 ? `0${s}` : s;
+    const min = m < 10 ? `0${m}` : m;
 
-    return `${m}:${s}`;
+    return `${min}:${sec}`;
   } else {
     if (t < 10) {
       return `00:0${t}`;

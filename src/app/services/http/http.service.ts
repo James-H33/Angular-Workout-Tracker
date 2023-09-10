@@ -3,9 +3,10 @@ import { IHttpService } from "./ihttp.service";
 
 @Injectable()
 export class HttpService implements IHttpService {
-  public base = 'https://http-nodejs-production-04f9.up.railway.app';
+  public base = 'http://localhost:9090';
+  // public base = 'https://http-nodejs-production-04f9.up.railway.app';
 
-  public async get(path: string): Promise<any> {
+  public async get<T>(path: string): Promise<T> {
     const response = await fetch(`${this.base}/${path}`, {
       method: 'GET',
       headers: {
@@ -19,7 +20,7 @@ export class HttpService implements IHttpService {
     return result;
   }
 
-  public async post(path: string, data: any): Promise<any> {
+  public async post<T>(path: string, data: T): Promise<T> {
     const fullPath = `${this.base}/${path}`;
     const response = await fetch(fullPath, {
       method: 'POST',
@@ -39,7 +40,7 @@ export class HttpService implements IHttpService {
     return result;
   }
 
-  public async put(path: string, data: any): Promise<any> {
+  public async put<T>(path: string, data: T): Promise<T> {
     const fullPath = `${this.base}/${path}`;
     const response = await fetch(fullPath, {
       method: 'PUT',
@@ -55,7 +56,7 @@ export class HttpService implements IHttpService {
     return result;
   }
 
-  public async delete(path: string): Promise<any> {
+  public async delete<T>(path: string): Promise<T> {
     const response = await fetch(`${this.base}/${path}`, {
       method: 'DELETE',
       headers: {

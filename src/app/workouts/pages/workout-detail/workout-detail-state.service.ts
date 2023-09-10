@@ -9,14 +9,12 @@ export class WorkoutDetailState {
   public currentState = new Workout();
   public state$ = new BehaviorSubject<Workout>(new Workout());
 
-  constructor() {}
-
   public watch() {
     return this.state$.asObservable();
   }
 
   public set(s: Partial<Workout>) {
-    this.currentState = { ...this.currentState, ...s } as any;
+    this.currentState = { ...this.currentState, ...s } as Workout;
     this.state$.next(this.currentState);
   }
 

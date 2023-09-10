@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { cast } from 'src/app/shared/functions';
 import { convertTimeFromDates, formatTimeFromSeconds } from 'src/app/shared/utils/utils';
 
 @Component({
@@ -6,7 +7,7 @@ import { convertTimeFromDates, formatTimeFromSeconds } from 'src/app/shared/util
   templateUrl: './timer.component.html',
   standalone: true
 })
-export class TimerComponent {
+export class TimerComponent implements OnDestroy {
   @Output()
   public timeChanged = new EventEmitter<number>();
 
@@ -44,11 +45,11 @@ export class TimerComponent {
     return formatTimeFromSeconds(this._time);
   }
 
-  private _time: number = 0;
-  private _startTime: number = 0;
-  private _startDate: string = '';
+  private _time = 0;
+  private _startTime = 0;
+  private _startDate = '';
   private _isActive = false;
-  private _interval: any;
+  private _interval?: ReturnType<typeof setInterval> | null;
 
   public ngOnDestroy(): void {
     this.stopTimer();
@@ -64,7 +65,7 @@ export class TimerComponent {
   }
 
   private stopTimer() {
-    clearInterval(this._interval);
+    clearInterval(cast<number>(this._interval));
   }
 
   private resetTimer() {

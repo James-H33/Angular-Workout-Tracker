@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AppStateService } from 'src/app/services/app-state/app-state.service';
 import { IAuthService } from 'src/app/services/auth/iauth.service';
+import { cast } from 'src/app/shared/functions/utils.functions';
 import { Exception } from 'src/app/shared/models/exception';
 import { UserCredentials } from 'src/app/shared/models/user-credentials.model';
 
@@ -18,21 +19,17 @@ import { UserCredentials } from 'src/app/shared/models/user-credentials.model';
     FormsModule
   ]
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   public isLoading = false;
   public form = new UserCredentials();
-  public errors: any = {};
-  public errorMessages: any = [];
+  public errors: Record<string, string> = {};
+  public errorMessages: string[] = [];
 
   constructor(
     private authService: IAuthService,
     private appState: AppStateService,
     private router: Router
   ) { }
-
-  public ngOnInit() {
-
-  }
 
   public async submit() {
     this.errorMessages = [];
@@ -58,9 +55,9 @@ export class LoginComponent implements OnInit {
 
   private populateLocalValidationErrors() {
     const keys = Object.keys(this.form);
-    const form: any = this.form;
+    const form = cast<Record<string, string>>(this.form);
 
-    for (let key of keys) {
+    for (const key of keys) {
       const value = form[key];
 
       if (!value) {

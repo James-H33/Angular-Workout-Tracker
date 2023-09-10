@@ -25,7 +25,7 @@ export class SetComponent implements AfterViewInit {
   @Input() public setIndex = 0;
   @ViewChild('ContentWrapper') public contentWrapperRef?: ElementRef;
 
-  public position: number = 0;
+  public position = 0;
 
   constructor(
     private store: Store<IWorkoutDetailState>
@@ -46,8 +46,8 @@ export class SetComponent implements AfterViewInit {
     }
 
     fromEvent(div, 'touchstart', { passive: true })
-      .subscribe((e: any) => {
-        let touchStartPos = e.touches[0].clientX;
+      .subscribe((e: any)  => {
+        const touchStartPos = e.touches[0].clientX;
         const setEl = findParentWithClass(e.target, 'set');
 
         const move = fromEvent(div, 'touchmove', { passive: true })
@@ -81,7 +81,7 @@ export class SetComponent implements AfterViewInit {
 
   public slideBack(el?: any) {
     if (this.position < 0) {
-      let next = this.position + 2;
+      const next = this.position + 2;
       this.position = next >= 0 ? 0 : next;
       requestAnimationFrame(this.slideBack.bind(this, el));
     } else {
