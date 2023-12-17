@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
-import { Actions, createEffect, ofType } from "@ngrx/effects";
+import { Actions, concatLatestFrom, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
-import { IWorkoutDetailState, WorkoutDetailActions, selectCurrentWorkout } from "@store/workout";
+import { IWorkoutDetailState, WorkoutDetailActions, selectWorkout } from "@store/workout";
 import { defer, from } from "rxjs";
-import { map, switchMap, tap, withLatestFrom } from "rxjs/operators";
+import { map, switchMap, tap } from "rxjs/operators";
 import { Workout } from "../../models/workout.model";
 import { WorkoutsService } from "../../services/workouts.service";
 
@@ -36,7 +36,7 @@ export class WorkoutDetailEffects {
     this.actions$
       .pipe(
         ofType(WorkoutDetailActions.FinishWorkout),
-        withLatestFrom(this.store.select(selectCurrentWorkout)),
+        concatLatestFrom(() => this.store.select(selectWorkout)),
         switchMap((values: any) => {
           const [{ callback }, workout] = values;
           const request$ = defer(() => from(this.workoutsService.update(workout as Workout)));
@@ -63,7 +63,7 @@ export class WorkoutDetailEffects {
           WorkoutDetailActions.RemoveSet,
           WorkoutDetailActions.UpdateSet,
         ),
-        withLatestFrom(this.store.select(selectCurrentWorkout)),
+        concatLatestFrom(() => this.store.select(selectWorkout)),
         switchMap((values: any) => {
           const [_, workout] = values;
           const request$ = defer(() => from(this.workoutsService.update(workout as Workout)));

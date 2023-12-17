@@ -1,5 +1,4 @@
 import { NgModule } from "@angular/core";
-import { AppStateService } from "./app-state/app-state.service";
 import { AuthService } from "./auth/auth.service";
 import { IAuthService } from "./auth/iauth.service";
 import { BackdropService } from "./backdrop/backdrop.service";
@@ -11,7 +10,6 @@ import { StorageService } from "./storage/storage.service";
 @NgModule({
   providers: [
     BackdropService,
-    AppStateService,
     { provide: 'Document', useFactory: () => document },
     { provide: 'Window', useFactory: () => window },
     { provide: 'LocalStorage', useFactory: () => localStorage },

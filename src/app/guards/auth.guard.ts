@@ -1,24 +1,32 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { first } from "rxjs/operators";
-import { AppStateService } from "../services/app-state/app-state.service";
+import { Store } from "@ngrx/store";
+import { combineLatest, filter, map, tap } from "rxjs";
+import { selectAuthStatus, selectIsLoggedIn } from "../store/app.selectors";
 
 @Injectable()
-export class IsLoggedInGuard  {
+export class IsLoggedInGuard {
+  readonly isLoggedIn$ = this.store.select(selectIsLoggedIn);
+  readonly authStatus$ = this.store.select(selectAuthStatus);
+
   constructor(
-    private appState: AppStateService,
+    private store: Store,
     private router: Router
   ) { }
 
-  public async canActivate() {
-    const state = await this.appState.state$.pipe(first()).toPromise();
-
-    if (state.isLoggedIn) {
-      return true;
-    }
-
-    this.router.navigateByUrl('login');
-
-    return false;
+  public canActivate() {
+    return combineLatest([
+      this.isLoggedIn$,
+      this.authStatus$.pipe(
+        filter((status) => status === 'success')
+      )
+    ])
+      .pipe(
+        tap(([isLoggedIn]) => {
+          if (!isLoggedIn) {
+            this.router.navigateByUrl('login');
+          }
+        })
+      )
   }
 }

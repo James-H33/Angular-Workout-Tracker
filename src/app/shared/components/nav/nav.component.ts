@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { AppState } from 'src/app/services/app-state/app-state.model';
-import { AppStateService } from 'src/app/services/app-state/app-state.service';
-import { IAuthService } from 'src/app/services/auth/iauth.service';
+import { Store } from '@ngrx/store';
+import { selectIsLoggedIn } from 'src/app/store/app.selectors';
+import * as AppStateActions from '../../../store/app.actions';
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'Navbar',
@@ -15,24 +16,21 @@ import { IAuthService } from 'src/app/services/auth/iauth.service';
     RouterModule
   ]
 })
-export class NavComponent implements OnInit {
-  public state? = new AppState();
+export class NavComponent {
+  readonly isLoggedIn$ = this.store.select(selectIsLoggedIn);
+
+  readonly vm$ = combineLatest({
+    isLoggedIn: this.isLoggedIn$
+  })
 
   constructor(
-    private appState: AppStateService,
-    private auth: IAuthService,
+    private store: Store,
     private router: Router
   ) { }
 
-  public ngOnInit(): void {
-    this.appState.state$.subscribe((s) => {
-      this.state = s;
-    });
-  }
-
   public async logout() {
-    await this.auth.logout();
-    this.appState.updateLoggedIn(false);
-    this.router.navigate(['/', 'login']);
+    this.store.dispatch(AppStateActions.Logout({
+      cb: () => this.router.navigate(['/', 'login'])
+    }));
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AppState } from './services/app-state/app-state.model';
-import { AppStateService } from './services/app-state/app-state.service';
+import { Store } from '@ngrx/store';
+
+import * as AppStateActions from './store/app.actions';
 
 @Component({
   selector: 'app-root',
@@ -9,18 +10,15 @@ import { AppStateService } from './services/app-state/app-state.service';
 })
 export class AppComponent implements OnInit {
   public isBackdropActive = false;
-  public state?: AppState;
 
   constructor(
-    private appState: AppStateService
+    private store: Store
   ) { }
 
   public async ngOnInit(): Promise<void> {
-    this.appState.state$.subscribe((state) => {
-      this.state = state;
-    });
-
-    await this.appState.load();
+    this.store.dispatch(
+      AppStateActions.CheckForAuth()
+    );
   }
 }
 

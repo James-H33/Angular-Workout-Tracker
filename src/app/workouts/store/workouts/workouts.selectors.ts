@@ -1,24 +1,18 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { WorkoutStateKeys } from '@store/workout-state-keys.enum';
-import { IWorkoutState } from './workouts.reducer';
+import { createSelector } from '@ngrx/store';
 import { Workout, getRecentDate } from '../../models/workout.model';
+import { WorkoutsFeature } from './workouts.reducer';
 
-export const workoutsStateSelector = createFeatureSelector<IWorkoutState>(WorkoutStateKeys.Workouts);
-
-export const workoutsSelector = createSelector(
-  workoutsStateSelector,
-  (state) => state.workouts
-)
+export const {
+  selectWorkouts,
+  selectIsLoading: selectWorkoutsIsLoading
+} = WorkoutsFeature
 
 export const selectSortedByMostRecentDate = createSelector(
-  workoutsStateSelector,
-  (state) => {
-    const workouts = [...state.workouts];
-
-    return sortWorkouts(workouts);
+  selectWorkouts,
+  (workouts) => {
+    return sortWorkouts([...workouts]);
   }
 )
-
 
 function sortWorkouts(workouts: Workout[]) {
   workouts.sort((a: Workout, b: Workout) => {

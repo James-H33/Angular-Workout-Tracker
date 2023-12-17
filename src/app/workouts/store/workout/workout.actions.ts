@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { Workout } from '../../models/workout.model';
 import { SetModel } from '../../models/set.model';
+import { Workout } from '../../models/workout.model';
 
 export const LoadWorkout = createAction(
   '[Workout] Load Workout',
@@ -55,11 +55,6 @@ export const RemoveSet = createAction(
   props<{ exerciseIndex: number, setIndex: number }>()
 )
 
-// add exercise
-// add set
-// update workout
-// update exercise
-// update set
-// delete workout
-// delete exercise
-// delete set
+export const Exit = createAction(
+  '[Workout] Exit'
+)

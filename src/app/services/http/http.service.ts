@@ -6,13 +6,14 @@ export class HttpService implements IHttpService {
   public base = 'http://localhost:9090';
   // public base = 'https://http-nodejs-production-04f9.up.railway.app';
 
-  public async get<T>(path: string): Promise<T> {
+  public async get<T>(path: string, options?: any): Promise<T> {
     const response = await fetch(`${this.base}/${path}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': this.getToken()
       },
+      ...options
     });
 
     const result = await response.json();

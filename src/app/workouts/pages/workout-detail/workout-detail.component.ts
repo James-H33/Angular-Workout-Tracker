@@ -2,8 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { WorkoutDetailActions, selectCurrentWorkout } from '@store/workout';
-import { IWorkoutDetailState } from '@store/workout/workout.reducer';
+import { WorkoutDetailActions, selectWorkout } from '@store/workout';
 import { BehaviorSubject, ReplaySubject, Subject, combineLatest } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 import { ExerciseCardComponent } from '../../components/exercise-card/exercise-card.component';
@@ -51,19 +50,20 @@ export class WorkoutDetailComponent implements OnInit, OnDestroy {
   public viewInit$ = new BehaviorSubject<boolean>(false);
 
   public isChoosingExercise = false;
-  public workout$ = this.store.select(selectCurrentWorkout);
+  public workout$ = this.store.select(selectWorkout);
   public workoutDuration$ = new BehaviorSubject<number>(0);
 
-  private destroy$ = new Subject();
+  private destroy$ = new Subject<void>();
 
   constructor(
     private router: ActivatedRoute,
     private routing: Router,
-    private store: Store<IWorkoutDetailState>
+    private store: Store
   ) { }
 
   public ngOnInit(): void {
     this.router.paramMap
+      .pipe(takeUntil(this.destroy$))
       .subscribe(map => {
         const id = map.get('id');
 
@@ -72,11 +72,11 @@ export class WorkoutDetailComponent implements OnInit, OnDestroy {
         }
       });
 
-    combineLatest([
-      this.workout$,
-      this.timerAnchor$,
-      this.timerRef$
-    ])
+    combineLatest({
+      workout: this.workout$,
+      timerAnchor: this.timerAnchor$,
+      timerRef: this.timerRef$
+    })
       .pipe(
         takeUntil(this.destroy$),
         map(() => Promise.resolve())
@@ -87,6 +87,7 @@ export class WorkoutDetailComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
+    this.store.dispatch(WorkoutDetailActions.Exit());
     this.destroy$.next();
     this.destroy$.complete();
   }
