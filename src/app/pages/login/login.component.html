@@ -27,11 +27,11 @@
     <p *ngIf="errors['password']">{{errors['password']}}</p>
   </div>
 
-  <div *ngIf="errorMessages.length" class="form-errors">
+  <!-- <div *ngIf="errorMessages.length" class="form-errors">
     <ng-container *ngFor="let error of errorMessages">
       <div>{{error}}</div>
     </ng-container>
-  </div>
+  </div> -->
 
   <button
     [disabled]="isLoading"

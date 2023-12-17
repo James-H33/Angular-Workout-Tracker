@@ -23,13 +23,16 @@
     "paths": {
       "@store/*": ["src/app/workouts/store/*"],
       "@store": ["src/app/workouts/store"],
+      "@core-models/*": ["src/app/models/*"],
+      "@core-models": ["src/app/models"],
     },
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "strictPropertyInitialization": false
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "strictTemplates": true,
   }
 }

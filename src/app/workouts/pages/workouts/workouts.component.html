@@ -1,4 +1,4 @@
-<div class="wrapper">
+<div class="wrapper" *ngIf="vm$ | async as vm">
   <h2>Workout Tracker</h2>
 
   <div class="start-cta">
@@ -8,10 +8,20 @@
   <div class="workout-section">
     <h3>Workouts</h3>
 
-    <WorkoutCard
-      *ngFor="let workout of workouts$ | async"
-      [workout]="workout">
-    </WorkoutCard>
+    <ng-container *ngIf="!vm.isLoading">
+      <WorkoutCard
+        *ngFor="let workout of vm.workouts"
+        [workout]="workout">
+      </WorkoutCard>
+    </ng-container>
+
+    <ng-container *ngIf="vm.isLoading">
+      <SkeletonRow [height]="100"></SkeletonRow>
+      <SkeletonRow [height]="100"></SkeletonRow>
+      <SkeletonRow [height]="100"></SkeletonRow>
+      <SkeletonRow [height]="100"></SkeletonRow>
+      <SkeletonRow [height]="100"></SkeletonRow>
+    </ng-container>
   </div>
 
   <Modal [isActive]="isActive" (closed)="closeModal()">

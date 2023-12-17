@@ -1,4 +1,4 @@
-import { createReducer, on } from "@ngrx/store";
+import { createFeature, createReducer, on } from "@ngrx/store";
 import { WorkoutDetailActions } from "@store/workout";
 import { Exercise } from "../../models/exercise.model";
 import { SetModel } from "../../models/set.model";
@@ -14,135 +14,144 @@ const initialState: IWorkoutDetailState = {
   isLoading: false
 }
 
-export const workoutDetailReducer = createReducer<IWorkoutDetailState>(
-  initialState,
+export const WorkoutDetailFeature = createFeature({
+  name: 'workout-detail',
+  reducer: createReducer<IWorkoutDetailState>(
+    initialState,
 
-  on(WorkoutDetailActions.LoadWorkoutSuccess, (state, { workout }) => {
-    return {
-      ...state,
-      workout,
-      isLoading: false
-    }
-  }),
+    on(WorkoutDetailActions.LoadWorkoutSuccess, (state, { workout }) => {
+      return {
+        ...state,
+        workout,
+        isLoading: false
+      }
+    }),
 
-  on(WorkoutDetailActions.AddExercise, (state, { title }) => {
-    const workout = state.workout as Workout;
-    const newExercise = new Exercise({ title });
-    newExercise.sets = [ new SetModel() ];
-    const exercises = [...workout.exercises, newExercise];
-
-    return {
-      ...state,
-      workout: { ...workout, exercises }
-    }
-  }),
-
-  on(WorkoutDetailActions.RemoveExercise, (state, { exerciseIndex }) => {
-    const workout = state.workout as Workout;
-    const updatedExercises = workout.exercises.filter((e, i) => i !== exerciseIndex);
-
-    return {
-      ...state,
-      workout: { ...workout, exercises: updatedExercises }
-    }
-  }),
-
-  on(WorkoutDetailActions.RemoveSet, (state, { exerciseIndex, setIndex }) => {
-    const workout = state.workout as Workout;
-    const exercise = workout.exercises[exerciseIndex];
-    const updatedSets = exercise.sets.filter((s, i) => i !== setIndex);
-    const updatedExercise = { ...exercise, sets: updatedSets };
-    const updatedExercises = replaceExerciseAtIndex(workout.exercises, exerciseIndex, updatedExercise);
-
-    return {
-      ...state,
-      workout: { ...workout, exercises: updatedExercises }
-    }
-  }),
-
-  on(WorkoutDetailActions.UpdateSet, (state, { exerciseIndex, setIndex, set }) => {
-    const workout = state.workout as Workout;
-    const exercise = workout.exercises[exerciseIndex];
-    const sets = replaceSetAtIndex(exercise.sets, setIndex, set);
-    const updatedExercise = { ...exercise, sets };
-    const exercises = replaceExerciseAtIndex(workout.exercises, exerciseIndex, updatedExercise);
-
-    return {
-      ...state,
-      workout: { ...workout, exercises }
-    }
-  }),
-
-  on(WorkoutDetailActions.StartWorkout, (state) => {
-    const workout = state.workout as Workout;
-    const startedDate = new Date().toISOString();
-
-    return {
-      ...state,
-      workout: { ...workout, startedDate }
-    }
-  }),
-
-  on(WorkoutDetailActions.FinishWorkout, (state) => {
-    const workout = state.workout as Workout;
-    const lastCompletedDate = new Date().toUTCString();
-
-    return {
-      ...state,
-      workout: { ...workout, lastCompletedDate }
-    }
-  }),
-
-  on(WorkoutDetailActions.FinishWorkoutSuccess, (state) => {
-    const workout = state.workout as Workout;
-    const startedDate = '';
-
-    return {
-      ...state,
-      workout: { ...workout, startedDate }
-    }
-  }),
-
-  on(WorkoutDetailActions.CancelWorkout, (state) => {
-    const workout = state.workout as Workout;
-    const startedDate = '';
-    const exercises = workout.exercises;
-    const updatedExercises = exercises.map((exercise) => {
-      const sets = exercise.sets.map(set => setIsCompleteToDefault(set));
+    on(WorkoutDetailActions.AddExercise, (state, { title }) => {
+      const workout = state.workout as Workout;
+      const newExercise = new Exercise({ title });
+      newExercise.sets = [ new SetModel() ];
+      const exercises = [...workout.exercises, newExercise];
 
       return {
-        ...exercise,
-        sets
+        ...state,
+        workout: { ...workout, exercises }
+      }
+    }),
+
+    on(WorkoutDetailActions.RemoveExercise, (state, { exerciseIndex }) => {
+      const workout = state.workout as Workout;
+      const updatedExercises = workout.exercises.filter((e, i) => i !== exerciseIndex);
+
+      return {
+        ...state,
+        workout: { ...workout, exercises: updatedExercises }
+      }
+    }),
+
+    on(WorkoutDetailActions.RemoveSet, (state, { exerciseIndex, setIndex }) => {
+      const workout = state.workout as Workout;
+      const exercise = workout.exercises[exerciseIndex];
+      const updatedSets = exercise.sets.filter((s, i) => i !== setIndex);
+      const updatedExercise = { ...exercise, sets: updatedSets };
+      const updatedExercises = replaceExerciseAtIndex(workout.exercises, exerciseIndex, updatedExercise);
+
+      return {
+        ...state,
+        workout: { ...workout, exercises: updatedExercises }
+      }
+    }),
+
+    on(WorkoutDetailActions.UpdateSet, (state, { exerciseIndex, setIndex, set }) => {
+      const workout = state.workout as Workout;
+      const exercise = workout.exercises[exerciseIndex];
+      const sets = replaceSetAtIndex(exercise.sets, setIndex, set);
+      const updatedExercise = { ...exercise, sets };
+      const exercises = replaceExerciseAtIndex(workout.exercises, exerciseIndex, updatedExercise);
+
+      return {
+        ...state,
+        workout: { ...workout, exercises }
+      }
+    }),
+
+    on(WorkoutDetailActions.StartWorkout, (state) => {
+      const workout = state.workout as Workout;
+      const startedDate = new Date().toISOString();
+
+      return {
+        ...state,
+        workout: { ...workout, startedDate }
+      }
+    }),
+
+    on(WorkoutDetailActions.FinishWorkout, (state) => {
+      const workout = state.workout as Workout;
+      const lastCompletedDate = new Date().toUTCString();
+
+      return {
+        ...state,
+        workout: { ...workout, lastCompletedDate }
+      }
+    }),
+
+    on(WorkoutDetailActions.FinishWorkoutSuccess, (state) => {
+      const workout = state.workout as Workout;
+      const startedDate = '';
+
+      return {
+        ...state,
+        workout: { ...workout, startedDate }
+      }
+    }),
+
+    on(WorkoutDetailActions.CancelWorkout, (state) => {
+      const workout = state.workout as Workout;
+      const startedDate = '';
+      const exercises = workout.exercises;
+      const updatedExercises = exercises.map((exercise) => {
+        const sets = exercise.sets.map(set => setIsCompleteToDefault(set));
+
+        return {
+          ...exercise,
+          sets
+        }
+      })
+
+      return {
+        ...state,
+        workout: { ...workout, exercises: updatedExercises, startedDate }
+      }
+    }),
+
+    on(WorkoutDetailActions.AddSet, (state, { exerciseIndex }) => {
+      const workout = state.workout as Workout;
+      const newSet = new SetModel();
+      const exercise = workout.exercises[exerciseIndex];
+      const lastSet = exercise.sets[exercise.sets.length - 1];
+
+      if (lastSet) {
+        newSet.reps = lastSet.reps;
+        newSet.weight = lastSet.weight;
+      }
+
+      const sets = [ ...exercise.sets, newSet ];
+      const newExercise = { ...exercise, sets };
+      const updatedExercises = replaceExerciseAtIndex(workout.exercises, exerciseIndex, newExercise);
+
+      return {
+        ...state,
+        workout: { ...workout, exercises: updatedExercises }
+      }
+    }),
+
+    on(WorkoutDetailActions.Exit, () => {
+      return {
+        ...initialState,
       }
     })
-
-    return {
-      ...state,
-      workout: { ...workout, exercises: updatedExercises, startedDate }
-    }
-  }),
-
-  on(WorkoutDetailActions.AddSet, (state, { exerciseIndex }) => {
-    const workout = state.workout as Workout;
-    const newSet = new SetModel();
-    const exercise = workout.exercises[exerciseIndex];
-    const lastSet = exercise.sets[exercise.sets.length - 1];
-
-    if (lastSet) {
-      newSet.reps = lastSet.reps;
-      newSet.weight = lastSet.weight;
-    }
-
-    const sets = [ ...exercise.sets, newSet ];
-    const newExercise = { ...exercise, sets };
-    const updatedExercises = replaceExerciseAtIndex(workout.exercises, exerciseIndex, newExercise);
-
-    return {
-      ...state,
-      workout: { ...workout, exercises: updatedExercises }
-    }
-  })
-)
+  )
+});
 
 function setIsCompleteToDefault(set: SetModel) {
   return { ...set, isComplete: false };

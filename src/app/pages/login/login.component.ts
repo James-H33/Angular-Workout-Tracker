@@ -2,11 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { AppStateService } from 'src/app/services/app-state/app-state.service';
-import { IAuthService } from 'src/app/services/auth/iauth.service';
+import { Store } from '@ngrx/store';
 import { cast } from 'src/app/shared/functions/utils.functions';
-import { Exception } from 'src/app/shared/models/exception';
 import { UserCredentials } from 'src/app/shared/models/user-credentials.model';
+import * as AppStateActions from '../../store/app.actions';
 
 @Component({
   selector: 'app-login',
@@ -23,16 +22,13 @@ export class LoginComponent {
   public isLoading = false;
   public form = new UserCredentials();
   public errors: Record<string, string> = {};
-  public errorMessages: string[] = [];
 
   constructor(
-    private authService: IAuthService,
-    private appState: AppStateService,
+    private store: Store,
     private router: Router
   ) { }
 
   public async submit() {
-    this.errorMessages = [];
     this.errors = {};
 
     if (!this.form.isValid()) {
@@ -40,17 +36,10 @@ export class LoginComponent {
       return;
     }
 
-    try {
-      await this.authService.login(this.form);
-      this.appState.updateLoggedIn(true);
-      this.router.navigate(['']);
-    } catch (err) {
-      if (err instanceof Exception) {
-        this.errorMessages = [err.message];
-      } else {
-        this.errorMessages = ['Something went wrong.'];
-      }
-    }
+    this.store.dispatch(AppStateActions.Login({
+      ...this.form,
+      cb: () => this.router.navigate([''])
+    }));
   }
 
   private populateLocalValidationErrors() {

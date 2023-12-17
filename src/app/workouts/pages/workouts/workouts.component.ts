@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { WorkoutActions, selectSortedByMostRecentDate } from '@store/workouts';
+import { WorkoutActions, selectSortedByMostRecentDate, selectWorkoutsIsLoading } from '@store/workouts';
 import { IWorkoutState } from '@store/workouts/workouts.reducer';
+import { combineLatest } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 @Component({
@@ -11,7 +12,11 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./workouts.component.scss']
 })
 export class WorkoutsComponent implements OnInit {
-  public workouts$ = this.store.select(selectSortedByMostRecentDate);
+  public vm$ = combineLatest({
+    isLoading: this.store.select(selectWorkoutsIsLoading),
+    workouts: this.store.select(selectSortedByMostRecentDate)
+  });
+
   public isActive = false;
   public newWorkoutTitle = '';
 

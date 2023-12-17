@@ -95,22 +95,29 @@ export class SetComponent implements AfterViewInit {
   }
 
   public onRepsChanged(e: any) {
-    const val = e.target.value;
+    const val = (e?.target as HTMLInputElement).value;
     const newState = { ...this.set, reps: parseInt(val) };
     this.updateState(newState);
   }
 
-  public onWeightChanged(e: any) {
-    const val = e.target.value;
+  public onWeightChanged(e: Event) {
+    const val = (e?.target as HTMLInputElement).value;
     const newState = { ...this.set, weight: parseInt(val) };
     this.updateState(newState);
   }
 
   public delete() {
-    this.store.dispatch(WorkoutDetailActions.RemoveSet({ exerciseIndex: this.exerciseIndex, setIndex: this.setIndex }));
+    this.store.dispatch(WorkoutDetailActions.RemoveSet({
+      exerciseIndex: this.exerciseIndex,
+      setIndex: this.setIndex
+    }));
   }
 
   public updateState(s: SetModel) {
-    this.store.dispatch(WorkoutDetailActions.UpdateSet({ exerciseIndex: this.exerciseIndex, setIndex: this.setIndex, set: s }));
+    this.store.dispatch(WorkoutDetailActions.UpdateSet({
+      exerciseIndex: this.exerciseIndex,
+      setIndex: this.setIndex,
+      set: s
+    }));
   }
 }
