@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
@@ -14,10 +14,9 @@ import { CheckboxComponent } from '../checkbox/checkbox.component';
   styleUrls: ['./set.component.scss'],
   standalone: true,
   imports: [
-    CommonModule,
     FormsModule,
     CheckboxComponent
-  ]
+]
 })
 export class SetComponent implements AfterViewInit {
   @Input() public set = new SetModel();

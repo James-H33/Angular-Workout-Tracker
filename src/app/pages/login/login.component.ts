@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
@@ -13,10 +13,9 @@ import * as AppStateActions from '../../store/app.actions';
   styleUrls: ['./login.component.scss'],
   standalone: true,
   imports: [
-    CommonModule,
     RouterModule,
     FormsModule
-  ]
+]
 })
 export class LoginComponent {
   public isLoading = false;

@@ -1,40 +1,39 @@
-<div class="wrapper" *ngIf="vm$ | async as vm">
-  <h2>Workout Tracker</h2>
+@if (vm$ | async; as vm) {
+  <div class="wrapper">
+    <h2>Workout Tracker</h2>
 
-  <div class="start-cta">
-    <button (click)="openModal()">Start New Workout</button>
-  </div>
+    <div class="start-cta">
+      <button (click)="openModal()">Start New Workout</button>
+    </div>
 
-  <div class="workout-section">
-    <h3>Workouts</h3>
+    <div class="workout-section">
+      <h3>Workouts</h3>
 
-    <ng-container *ngIf="!vm.isLoading">
-      <WorkoutCard
-        *ngFor="let workout of vm.workouts"
-        [workout]="workout">
-      </WorkoutCard>
-    </ng-container>
+      @if (!vm.isLoading) {
+        @for (workout of vm.workouts; track workout) {
+          <WorkoutCard
+            [workout]="workout">
+          </WorkoutCard>
+        }
+    }
 
-    <ng-container *ngIf="vm.isLoading">
+    @if (vm.isLoading) {
       <SkeletonRow [height]="100"></SkeletonRow>
       <SkeletonRow [height]="100"></SkeletonRow>
       <SkeletonRow [height]="100"></SkeletonRow>
       <SkeletonRow [height]="100"></SkeletonRow>
       <SkeletonRow [height]="100"></SkeletonRow>
-    </ng-container>
+    }
   </div>
 
   <Modal [isActive]="isActive" (closed)="closeModal()">
     <div modalBody class="new-workout">
       <label for="">Name your workout: </label>
-
       <input class="standard" type="text" [(ngModel)]="newWorkoutTitle" />
-
       <div class="new-workout-btns">
         <button (click)="createWorkout()">
           Create
         </button>
-
         <button class="link-button"(click)="closeModal()">
           Cancel
         </button>
@@ -42,3 +41,4 @@
     </div>
   </Modal>
 </div>
+}
