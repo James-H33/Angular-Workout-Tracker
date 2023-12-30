@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { exercises } from './exercise-data/exercises';
 
@@ -7,9 +7,7 @@ import { exercises } from './exercise-data/exercises';
   templateUrl: './exercise-picker.component.html',
   styleUrls: ['./exercise-picker.component.scss'],
   standalone: true,
-  imports: [
-    CommonModule,
-  ]
+  imports: []
 })
 export class ExercisePickerComponent {
   @Output()

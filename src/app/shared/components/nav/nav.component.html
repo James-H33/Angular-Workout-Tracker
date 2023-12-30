@@ -1,13 +1,12 @@
 <nav class="navbar">
-  <ng-container *ngIf="vm$ | async as vm">
-    <ng-container *ngIf="vm.isLoggedIn">
+  @if (vm$ | async; as vm) {
+    @if (vm.isLoggedIn) {
       <h3 [routerLink]="['']">Workout Tracker</h3>
       <div class="navbar-logout" (click)="logout()" aria-hidden="true">Logout</div>
-    </ng-container>
-
-    <ng-container *ngIf="!vm.isLoggedIn">
+    }
+    @if (!vm.isLoggedIn) {
       <h3 [routerLink]="['']">Workout Tracker</h3>
       <a routerLink="['login']">Login</a>
-    </ng-container>
-  </ng-container>
+    }
+  }
 </nav>

@@ -1,4 +1,4 @@
-import { APP_BASE_HREF, CommonModule } from '@angular/common';
+import { APP_BASE_HREF } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 
 @Component({
@@ -6,9 +6,7 @@ import { Component, Inject } from '@angular/core';
   templateUrl: './expander.component.html',
   styleUrls: ['./expander.component.scss'],
   standalone: true,
-  imports: [
-    CommonModule,
-  ]
+  imports: []
 })
 export class ExpanderComponent {
   public isActive = false;

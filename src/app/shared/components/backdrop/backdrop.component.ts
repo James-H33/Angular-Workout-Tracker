@@ -1,12 +1,10 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'Backdrop',
   standalone: true,
-  imports: [
-    CommonModule
-  ],
+  imports: [],
   template: `
     <div class="global-backdrop" [class.active]="isActive" (click)="dismiss()"></div>
   `

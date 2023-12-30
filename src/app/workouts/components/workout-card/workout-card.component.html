@@ -7,17 +7,21 @@
   </div>
 
   <div>
-    <label [for]="">{{workout.title}}</label>
+    <label [for]="">{{ workout.title }}</label>
 
     <ul>
-      <li *ngFor="let e of workout.exercises">{{e.title}}</li>
+      @for (e of workout.exercises; track e) {
+        <li>{{ e.title }}</li>
+      }
     </ul>
   </div>
 
   <div class="workout-date">
-    {{formatDate(workout) | date }}
+    {{ formatDate(workout) | date }}
   </div>
 </div>
 
-<Backdrop [isActive]="Expander.isActive" (clicked)="Expander.deactivate()"></Backdrop>
-
+<Backdrop
+  [isActive]="Expander.isActive"
+  (clicked)="Expander.deactivate()"
+></Backdrop>

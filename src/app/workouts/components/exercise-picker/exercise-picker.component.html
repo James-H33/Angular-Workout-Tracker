@@ -1,19 +1,26 @@
-<ng-container *ngIf="isOpen">
-
+@if (isOpen) {
   <div class="exercise-picker">
     <div class="exercise-picker-content">
       <h4>Pick a Exercise</h4>
 
       <div class="exercise-picker-list">
-        <ng-container *ngFor="let exercise of exercises">
-          <div class="exercise-picker-list-item" (click)="select(exercise)" aria-hidden="true">
-            <img [src]="exercise.image" alt="workout" >
-            <label for="">{{exercise.title}}</label>
+        @for (exercise of exercises; track exercise) {
+          <div
+            class="exercise-picker-list-item"
+            (click)="select(exercise)"
+            aria-hidden="true"
+          >
+            <img [src]="exercise.image" alt="workout" />
+            <label for="">{{ exercise.title }}</label>
           </div>
-        </ng-container>
+        }
       </div>
     </div>
 
-    <div class="exercise-picker-backdrop" (click)="close()" aria-hidden="true"></div>
+    <div
+      class="exercise-picker-backdrop"
+      (click)="close()"
+      aria-hidden="true"
+    ></div>
   </div>
-</ng-container>
+}

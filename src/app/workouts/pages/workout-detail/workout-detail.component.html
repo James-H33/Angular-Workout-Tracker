@@ -1,30 +1,31 @@
-<div *ngIf="workout$ | async as currentWorkout" class="workout-detail">
-  <ng-container *ngIf="currentWorkout.startedDate">
-    <div class="workout-detail-header">
-      <button (click)="complete()">Finish</button>
-      <button class="secondary" (click)="cancel()">Cancel</button>
+@if (workout$ | async; as currentWorkout) {
+  <div class="workout-detail">
+    @if (currentWorkout.startedDate) {
+      <div class="workout-detail-header">
+        <button (click)="complete()">Finish</button>
+        <button class="secondary" (click)="cancel()">Cancel</button>
+      </div>
+    }
+
+    @if (!currentWorkout.startedDate) {
+      <div class="workout-detail-header">
+        <button (click)="start()">Start</button>
+      </div>
+    }
+
+    <div class="workout-detail-title">
+      <h2>{{currentWorkout.title}}</h2>
     </div>
-  </ng-container>
 
-  <ng-container *ngIf="!currentWorkout.startedDate">
-    <div class="workout-detail-header">
-      <button (click)="start()">Start</button>
+    <div class="workout-detail-timer" #TimerRef>
+      <Timer
+        [startDate]="currentWorkout.startedDate"
+        (timeChanged)="handleWorkoutTimerUpdate($event)">
+      </Timer>
     </div>
-  </ng-container>
 
-  <div class="workout-detail-title">
-    <h2>{{currentWorkout.title}}</h2>
-  </div>
-
-  <div class="workout-detail-timer" #TimerRef>
-    <Timer
-      [startDate]="currentWorkout.startedDate"
-      (timeChanged)="handleWorkoutTimerUpdate($event)">
-    </Timer>
-  </div>
-
-  <div class="workout-detail-scrolling-timer" #ScrollingTimerRef>
-    <Timer
+    <div class="workout-detail-scrolling-timer" #ScrollingTimerRef>
+      <Timer
       [startDate]="currentWorkout.startedDate"
       (timeChanged)="handleWorkoutTimerUpdate($event)">
     </Timer>
@@ -33,18 +34,21 @@
   <div #TimerAnchor class="workout-detail-timer-wrapper"></div>
 
   <div class="workout-detail-exercises" [class.is-disabled]="!currentWorkout.startedDate">
-    <div *ngFor="let e of currentWorkout.exercises; let i = index;" class="workout-detail-exercise">
-      <ExerciseCard
-        [exercise]="e"
-        [exerciseIndex]="i">
-      </ExerciseCard>
-    </div>
+    @for (e of currentWorkout.exercises; track e; let i = $index) {
+      <div class="workout-detail-exercise">
+        <ExerciseCard
+          [exercise]="e"
+          [exerciseIndex]="i">
+        </ExerciseCard>
+      </div>
+    }
   </div>
 
   <div class="workout-detail-add-exercise">
     <button class="pill-button--blue" (click)="openExercisePicker()">Add Exercise</button>
   </div>
 </div>
+}
 
 <app-exercise-picker
   [isOpen]="isChoosingExercise"

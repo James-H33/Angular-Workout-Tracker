@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, Input, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IWorkoutDetailState, WorkoutDetailActions } from '@store/workout';
@@ -14,12 +14,11 @@ import { BackdropComponent } from '../../../shared/components/backdrop/backdrop.
   styleUrls: ['./exercise-card.component.scss'],
   standalone: true,
   imports: [
-    CommonModule,
     CheckboxComponent,
     ExpanderComponent,
     SetComponent,
     BackdropComponent
-  ]
+]
 })
 export class ExerciseCardComponent {
   @Input() public exercise = new Exercise();

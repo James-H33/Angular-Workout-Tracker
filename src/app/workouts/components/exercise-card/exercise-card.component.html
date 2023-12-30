@@ -18,12 +18,13 @@
     </div>
 
     <div class="exercise-sets">
-      <Set
-        *ngFor="let set of exercise.sets; let i = index"
-        [set]="set"
-        [exerciseIndex]="exerciseIndex"
-        [setIndex]="i">
-      </Set>
+      @for (set of exercise.sets; track set; let i = $index) {
+        <Set
+          [set]="set"
+          [exerciseIndex]="exerciseIndex"
+          [setIndex]="i">
+        </Set>
+      }
     </div>
   </div>
 

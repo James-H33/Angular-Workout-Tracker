@@ -1,13 +1,11 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'Modal',
   templateUrl: 'modal.component.html',
   standalone: true,
-  imports: [
-    CommonModule
-  ]
+  imports: []
 })
 export class ModalComponent {
   @Output() public closed = new EventEmitter();
